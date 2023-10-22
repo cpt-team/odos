@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/tabplant"
+        android:title="식물"
+        android:icon="@drawable/ic_plant"/>
+
+    <item
+        android:id="@+id/tabguide"
+        android:title="도감"
+        android:icon="@drawable/ic_guide"/>
+
+    <item
+        android:id="@+id/tabhome"
+        android:title="홈"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/tabodos"
+        android:title="odos"
+        android:icon="@drawable/ic_odos"/>
+
+    <item
+        android:id="@+id/tabdiary"
+        android:title="다이어리"
+        android:icon="@drawable/ic_calender"/>
+
+</menu>
