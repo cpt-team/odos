@@ -12,12 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cpt_odos_diary"
         tools:targetApi="31">
-
         <activity
-            android:name=".OdosListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PlantSelectActivity"
+            android:name=".OdosEditActivity"
             android:exported="false" />
         <activity
             android:name=".DiaryEditActivity"
@@ -39,9 +35,6 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

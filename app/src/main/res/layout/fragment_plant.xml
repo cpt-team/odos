@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="식물페이지 screen3"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
 
 </FrameLayout>
