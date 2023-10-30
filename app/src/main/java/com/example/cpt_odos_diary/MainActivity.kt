@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
     }
 
     private fun setFragment(tag: String, fragment: Fragment) {
