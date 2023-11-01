@@ -7,10 +7,14 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface LoginApi {
-    @GET("/user/signup")
+
+    @Headers("Content-Type: application/json")
+    @POST("/user/signup")
     fun postSignup(
 
-    ) : Call<PostResSignUp>
+        @Body requestData: PostReqSignUp
+
+    ): Call<PostResSignUp>
 
 
     @Headers("Content-Type: application/json")  //@Headers 어노테이션 이용해 헤더값 넣어주기

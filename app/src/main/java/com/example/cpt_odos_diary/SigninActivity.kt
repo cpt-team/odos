@@ -27,7 +27,7 @@ class SigninActivity : AppCompatActivity() {
 
         // retrofit 구현
         val btnEvent = binding.subBnt
-        val checkEvent = binding.checkBtn
+        val signUpBtn = binding.signUpBtn
         val signApi : LoginApi = RetrofitCreator.signApi
 
        btnEvent.setOnClickListener{
@@ -36,7 +36,7 @@ class SigninActivity : AppCompatActivity() {
         val requestData = PostReqSignIn(email,pw)
 
         val callSignIn = signApi.postSignIn(requestData)
-        ResultPostSignIn(callSignIn);
+        resultPostSignIn(callSignIn);
 
         App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG, it1) }
 
@@ -44,26 +44,36 @@ class SigninActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
-    /*
-    checkEvent.setOnClickListener{
-        val callGetJwtCheck = App.token_prefs.accessToken?.let { it1 -> jwtApi.getLogin(it1) }
 
-        callGetJwtCheck?.let { it1 -> jwtCheck(it1) }
+    signUpBtn.setOnClickListener{
+        val intent = Intent(this, SignupActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
-    */
+
 
 }
 
-    private fun ResultPostSignIn(callSignIn: Call<PostResSignIn>) {
+    private fun resultPostSignIn(callSignIn: Call<PostResSignIn>) {
          callSignIn.enqueue(object: Callback<PostResSignIn>{
              override fun onResponse(
                  call: Call<PostResSignIn>,
                  response: Response<PostResSignIn>
              ) {
-                 Log.d(ContentValues.TAG, "성공 : ${response.body()}")
-                 Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
-                 App.token_prefs.accessToken = response.body()?.token
-                 Log.d(TAG, "token : ${App.token_prefs.accessToken}")// sharedPreference에 데이터 저장 후 호출
+                 if(response.isSuccessful) {
+                     Log.d(ContentValues.TAG, "signIn Post 성공 : ${response.body()}")
+                     Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
+                     Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
+                     Log.d(ContentValues.TAG, "성공 success : ${response.body()?.success}")
+                     App.token_prefs.accessToken = response.body()?.token
+                     Log.d(TAG, "성공 token : ${App.token_prefs.accessToken}")// sharedPreference에 데이터 저장 후 호출
+                 }
+                 else {
+                     Log.d(ContentValues.TAG, "signIn Post 실패 : ${response.body()}")
+                     Log.d(ContentValues.TAG, "실패 message : ${response.body()?.message}")
+                     Log.d(ContentValues.TAG, "실패 status : ${response.body()?.status}")
+                     Log.d(ContentValues.TAG, "실패 success : ${response.body()?.success}")
+                 }
 
 
              }

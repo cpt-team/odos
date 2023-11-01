@@ -62,29 +62,37 @@
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <Button
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            >
+            <Button
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="submit"
+            android:text="로그인"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginStart="15dp"
             android:id="@+id/subBnt"
             >
 
-        </Button>
+            </Button>
 
-        <Button
+            <Button
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="check_token"
+            android:text="회원가입"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:id="@+id/checkBtn"
+            android:layout_marginStart="15dp"
+            android:id="@+id/signUpBtn"
             >
 
-        </Button>
+            </Button>
+
+
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 </layout>
