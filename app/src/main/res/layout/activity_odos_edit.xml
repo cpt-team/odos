@@ -7,4 +7,101 @@
     tools:context=".OdosEditActivity">
 
 
+    <TextView
+        android:id="@+id/tv_odos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text=" Make Odos"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="388dp"
+        android:layout_height="185dp"
+        android:background="@drawable/shape_input_field"
+        android:inputType="textMultiLine"
+        android:lines="15"
+        android:maxLength="128"
+        android:maxLines="15"
+        android:overScrollMode="always"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:scrollHorizontally="false"
+        android:singleLine="true"
+        android:text="오늘의 Odos"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382" />
+
+    <Button
+        android:id="@+id/tv_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="목록"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        android:onClick="onTvListButtonClick"/>
+
+    <Button
+        android:id="@+id/tv_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="글쓰기"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.816"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ImageView
+        android:id="@+id/iv_weather"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/ic_thermometer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ImageView
+        android:id="@+id/iv_mood"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/ic_mood"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.207"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <ImageView
+        android:id="@+id/iv_song"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/ic_music"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

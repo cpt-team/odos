@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         fragTransaction.commitAllowingStateLoss()
+
     }
+
+    fun goToOdosFragment() {
+        setFragment(TAG_Odos, OdosFragment())
+    }
+
 }
 

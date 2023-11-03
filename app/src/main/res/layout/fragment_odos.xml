@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".OdosFragment">
 
+
     <TextView
         android:id="@+id/odos_textView"
         android:layout_width="wrap_content"
