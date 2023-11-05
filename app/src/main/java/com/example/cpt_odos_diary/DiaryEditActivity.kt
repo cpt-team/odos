@@ -4,6 +4,7 @@ import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import java.util.Locale
 
@@ -25,6 +26,14 @@ class DiaryEditActivity : AppCompatActivity() {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val formattedDate = dateFormat.format(selectedDate.time)
             dateTextView.text = formattedDate
+        }
+
+        val backbtn = findViewById<ImageView>(R.id.iv_back)
+        backbtn.setOnClickListener {
+            val diaryFragment = DiaryFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.diary, diaryFragment)
+                .commit()
         }
     }
 }

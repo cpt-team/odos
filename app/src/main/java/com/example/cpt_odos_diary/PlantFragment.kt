@@ -6,28 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-
+import com.example.cpt_odos_diary.databinding.FragmentPlantBinding
 
 class PlantFragment : Fragment() {
+    lateinit var binding: FragmentPlantBinding
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentPlantBinding.inflate(layoutInflater)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        // 화분 꾸미기 버튼
+        val plantButton = binding.plantEdit
 
-        val view = inflater.inflate(R.layout.fragment_plant, container, false)
-
-        val plantButton = view.findViewById<Button>(R.id.button1)
-
-
-
+        // 화분 꾸미기 버튼을 눌렀을 때
         plantButton.setOnClickListener {
+            // 인텐트로 액티비티 전환
             val guideIntent = Intent(requireContext(), PlantinfoActivity::class.java)
             startActivity(guideIntent)
         }
 
-        return view
+        return binding.root
     }
-
 }

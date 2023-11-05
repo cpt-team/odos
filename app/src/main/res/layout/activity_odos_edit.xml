@@ -1,107 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
     tools:context=".OdosEditActivity">
 
 
-    <TextView
-        android:id="@+id/tv_odos"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text=" Make Odos"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal">
 
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="388dp"
-        android:layout_height="185dp"
-        android:background="@drawable/shape_input_field"
-        android:inputType="textMultiLine"
-        android:lines="15"
-        android:maxLength="128"
-        android:maxLines="15"
-        android:overScrollMode="always"
-        android:padding="8dp"
-        android:scrollbars="vertical"
-        android:scrollHorizontally="false"
-        android:singleLine="true"
-        android:text="오늘의 Odos"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        <ImageView
+            android:id="@+id/iv_odosback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_ios_24"/>
 
-    <Button
-        android:id="@+id/tv_list"
-        android:layout_width="wrap_content"
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make Odos"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check"
+            app:tint="#43a847"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="목록"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        android:onClick="onTvListButtonClick"/>
+        android:layout_margin="16dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/tv_write"
-        android:layout_width="wrap_content"
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날씨"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <RadioGroup
+            android:id="@+id/rg_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:background="#504F4F"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:background="@drawable/selector_btn_sun"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_cloudy"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_cloud"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_bad_cloud"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_rainy"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_snowy"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="글쓰기"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        android:layout_margin="16dp"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_weather"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="96dp"
-        android:src="@drawable/ic_thermometer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <ImageView
-        android:id="@+id/iv_mood"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="96dp"
-        android:src="@drawable/ic_mood"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.207"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기분"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
-    <ImageView
-        android:id="@+id/iv_song"
-        android:layout_width="46dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="96dp"
-        android:src="@drawable/ic_music"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        <RadioGroup
+            android:id="@+id/rg_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:background="#504F4F"
+            android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:background="@drawable/selector_btn_smiling"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_love"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_sleep"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_crying"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_wow"/>
+
+            <RadioButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:button="@null"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/selector_btn_angry"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:lines="15"
+            android:maxLines="15"
+            android:maxLength="120"
+            android:scrollbars="vertical"
+            android:scrollHorizontally="false"
+            android:overScrollMode="always"
+            android:padding="8dp"
+            android:background="@drawable/shape_input_field"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

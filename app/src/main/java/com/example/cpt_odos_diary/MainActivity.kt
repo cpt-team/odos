@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.navigationView.selectedItemId = R.id.tabhome
-        setFragment(TAG_HOME, HomeFragment())
+
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -101,10 +101,6 @@ class MainActivity : AppCompatActivity() {
 
         fragTransaction.commitAllowingStateLoss()
 
-    }
-
-    fun goToOdosFragment() {
-        setFragment(TAG_Odos, OdosFragment())
     }
 
 }
