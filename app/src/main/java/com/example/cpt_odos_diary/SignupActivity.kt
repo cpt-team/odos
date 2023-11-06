@@ -37,17 +37,18 @@ class SignupActivity : AppCompatActivity(){
 
 
 
+            /*
             // Date타입 형식 맞추기
-            val simpleDateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.KOREAN)
+            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
             Log.d(TAG,"시간: ${simpleDateFormat.parse(binding.birthTextviewInputEditText.text.toString()) }")
-
+            */
 
             val email : String = binding.emailTextInputEditText.text.toString()
             val pw : String = binding.passwordTextInputEditText.text.toString()
             val name : String = binding.nameTextInputEditText.text.toString()
 
 
-            val birth : Date? = simpleDateFormat.parse(binding.birthTextviewInputEditText.text.toString())   // 형식 맞춰서 보내기
+            val birth : String = binding.birthTextviewInputEditText.text.toString()   // 형식 맞춰서 보내기
 
 
             // 서버로 데이터 전송

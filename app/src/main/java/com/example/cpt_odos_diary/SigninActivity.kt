@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cpt_odos_diary.App.App
+import com.example.cpt_odos_diary.App.TokenSharedPreferences
 import com.example.cpt_odos_diary.databinding.ActivitySigninBinding
 import com.example.cpt_odos_diary.retrofit.PostReqSignIn
 import com.example.cpt_odos_diary.retrofit.RetrofitCreator
@@ -65,8 +66,13 @@ class SigninActivity : AppCompatActivity() {
                      Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
                      Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
                      Log.d(ContentValues.TAG, "성공 success : ${response.body()?.success}")
-                     App.token_prefs.accessToken = response.body()?.token
+                     Log.d(ContentValues.TAG, "성공 success : ${response.body()?.data}")
+
+
+                     App.token_prefs.accessToken = response.body()?.data?.get(0)?.token
                      Log.d(TAG, "성공 token : ${App.token_prefs.accessToken}")// sharedPreference에 데이터 저장 후 호출
+                     App.token_prefs.uid = response.body()?.data?.get(0)?.uid
+                     Log.d(TAG, "성공 uid : ${App.token_prefs.uid}")// sharedPreference에 데이터 저장 후 호출
                  }
                  else {
                      Log.d(ContentValues.TAG, "signIn Post 실패 : ${response.body()}")
