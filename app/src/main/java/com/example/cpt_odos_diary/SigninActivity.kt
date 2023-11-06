@@ -38,7 +38,7 @@ class SigninActivity : AppCompatActivity() {
         val callSignIn = signApi.postSignIn(requestData)
         resultPostSignIn(callSignIn);
 
-        App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG, it1) }
+        App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG,it1) }
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

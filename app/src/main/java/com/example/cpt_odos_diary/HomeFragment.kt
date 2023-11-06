@@ -41,8 +41,12 @@ class HomeFragment : Fragment() {
 
         // "알람" 버튼을 클릭했을 때 AlarmActivity로 이동
         alarmButton.setOnClickListener {
-            val alarmIntent = Intent(requireContext(), AlarmActivity::class.java)
+            val alarmIntent = Intent(requireContext(), SigninActivity::class.java)
+
+            // 임시방편으로 alarm-> signInActivity로 변경
             startActivity(alarmIntent)
+
+
         }
 
         return view

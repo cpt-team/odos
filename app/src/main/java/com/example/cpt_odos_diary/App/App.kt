@@ -1,4 +1,6 @@
+
 package com.example.cpt_odos_diary.App
+
 
 import android.app.Application
 import android.content.Intent
@@ -12,8 +14,11 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+
         token_prefs = TokenSharedPreferences(applicationContext)
 
+        /*
         // 앱실행시 token 지우기. signOut만들면 그 때 이거 쓰자
         token_prefs.editor.remove("accessToken")
         token_prefs.editor.commit()
@@ -32,6 +37,7 @@ class App: Application() {
 
 
         }
+         */
 
     }
 
