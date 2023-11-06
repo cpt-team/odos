@@ -1,9 +1,12 @@
 package com.example.cpt_odos_diary
 
+import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+//import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.ActivityMainBinding
 
 
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
     }
 
     private fun setFragment(tag: String, fragment: Fragment) {
@@ -100,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fragTransaction.commitAllowingStateLoss()
-
+        // App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG, "토큰: $it1") }
     }
 
 }
