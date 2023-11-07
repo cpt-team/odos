@@ -1,9 +1,11 @@
 package com.example.cpt_odos_diary
 
+import android.content.ContentValues.TAG
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import java.util.Locale
@@ -26,6 +28,8 @@ class DiaryEditActivity : AppCompatActivity() {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val formattedDate = dateFormat.format(selectedDate.time)
             dateTextView.text = formattedDate
+
+            Log.d(TAG,"date: "+formattedDate) // 받은 날짜 보여줌.
         }
 
         val backbtn = findViewById<ImageView>(R.id.iv_back)
