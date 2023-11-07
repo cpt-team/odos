@@ -34,10 +34,7 @@ class DiaryEditActivity : AppCompatActivity() {
 
         val backbtn = findViewById<ImageView>(R.id.iv_back)
         backbtn.setOnClickListener {
-            val diaryFragment = DiaryFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.diary, diaryFragment)
-                .commit()
+            finish()
         }
     }
 }

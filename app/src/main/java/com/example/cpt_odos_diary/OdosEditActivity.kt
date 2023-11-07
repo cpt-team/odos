@@ -18,12 +18,7 @@ class OdosEditActivity : AppCompatActivity() {
 
         val btnOpenOdosFragment = findViewById<ImageView>(R.id.iv_odosback)
         btnOpenOdosFragment.setOnClickListener {
-            // OdosFragment로 이동
-            val odosFragment = OdosFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.odosfragment, odosFragment)
-                .addToBackStack(null) // 뒤로가기 스택에 추가
-                .commit()
+            finish()
         }
     }
 }

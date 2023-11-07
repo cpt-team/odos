@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.navigationView.selectedItemId = R.id.tabhome
 
+
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.tabplant -> setFragment(TAG_Plant, PlantFragment())
