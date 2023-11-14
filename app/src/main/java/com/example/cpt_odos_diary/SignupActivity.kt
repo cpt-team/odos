@@ -29,6 +29,8 @@ class SignupActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         val submitBtn = binding.submitButton
+
+        // 레트로핏 객체
         val signApi : LoginApi = RetrofitCreator.signApi
 
 
@@ -43,11 +45,11 @@ class SignupActivity : AppCompatActivity(){
             Log.d(TAG,"시간: ${simpleDateFormat.parse(binding.birthTextviewInputEditText.text.toString()) }")
             */
 
+
+            // 회원정보를 변수에 넣어서 보낼거에요
             val email : String = binding.emailTextInputEditText.text.toString()
             val pw : String = binding.passwordTextInputEditText.text.toString()
             val name : String = binding.nameTextInputEditText.text.toString()
-
-
             val birth : String = binding.birthTextviewInputEditText.text.toString()   // 형식 맞춰서 보내기
 
 
@@ -72,7 +74,7 @@ class SignupActivity : AppCompatActivity(){
                 call: Call<PostResSignUp>,
                 response: Response<PostResSignUp>
             ) {
-                if(response.isSuccessful) {
+                if(response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "signUp Post 성공 : ${response.body()}")
                     Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
                     Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
