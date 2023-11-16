@@ -128,6 +128,11 @@ class DiaryEditActivity : AppCompatActivity() {
         }
 
 
+        val backbtn = findViewById<ImageView>(R.id.iv_back)
+        backbtn.setOnClickListener {
+            finish()
+        }
+
     }
 }
 

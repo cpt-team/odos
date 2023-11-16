@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class SignupActivity : AppCompatActivity(){
+class  SignupActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivitySignupBinding
     @SuppressLint("SimpleDateFormat")
@@ -58,14 +58,8 @@ class SignupActivity : AppCompatActivity(){
             val callSignUp = requestData.let { it1 -> signApi.postSignup(it1) }
 
             resultPostSignUp(callSignUp);
-
             finish()
-
-
-
         }
-
-
     }
 
     private fun resultPostSignUp(callSignUp: Call<PostResSignUp>) {
@@ -82,18 +76,10 @@ class SignupActivity : AppCompatActivity(){
                     Log.d(ContentValues.TAG, "signUp Post 실패 : ${response.body()}")
 
                 }
-
             }
-
             override fun onFailure(call: Call<PostResSignUp>, t: Throwable) {
                 Log.e(ContentValues.TAG, "통신 에러 : $t")
-
             }
-
         })
-
     }
-
-
-
 }

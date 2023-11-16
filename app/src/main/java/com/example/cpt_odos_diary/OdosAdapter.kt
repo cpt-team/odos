@@ -19,7 +19,6 @@ class OdosAdapter(val context: Context, val data: MutableList<OdosModel>) :Recyc
         val binding = (holder as OdosViewHolder).binding
         val odos = data[position]
 
-        binding.date.text = odos.date.toString()
         binding.content.text = odos.content
 
     }

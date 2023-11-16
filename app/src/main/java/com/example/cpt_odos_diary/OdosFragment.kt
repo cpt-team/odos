@@ -18,6 +18,8 @@ import com.example.cpt_odos_diary.databinding.FragmentOdosBinding
 import com.example.cpt_odos_diary.databinding.FragmentPlantGuideBinding
 import com.example.cpt_odos_diary.model.OdosModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import org.json.JSONArray
+import org.json.JSONObject
 import java.time.LocalDate
 
 class OdosFragment : Fragment() {
@@ -39,29 +41,60 @@ class OdosFragment : Fragment() {
             val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
             startActivity(odosPlusIntent)
         }
-
-
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun prepare() {
-        var data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        data = OdosModel(LocalDate.now(), "hello")
-        odosList.add(data)
-        OdosAdapter(activity as Context, odosList)?.notifyDataSetChanged()
+        val jsonData = """
+            [
+                {"content": "오늘 너무 덥다", "weather": "sunny", "emoji": "😓"},
+                {"content": "내일은 비올 것 같아", "weather": "rainy", "emoji": "☔"},
+                {"content": "좋은 날씨", "weather": "sunny", "emoji": "😎"},
+                {"content": "한강 가기 좋은 날", "weather": "clear", "emoji": "🏞️"},
+                {"content": "축구하기 딱 좋은 날", "weather": "cloudy", "emoji": "⚽"},
+                {"content": "우산 필요 없는 날", "weather": "clear", "emoji": "😃"},
+                {"content": "비올 때는 집에서 영화", "weather": "rainy", "emoji": "🎬"},
+                {"content": "산책하기 좋은 날씨", "weather": "clear", "emoji": "🚶"},
+                {"content": "오늘 너무 덥다", "weather": "sunny", "emoji": "😓"},
+                {"content": "내일은 비올 것 같아", "weather": "rainy", "emoji": "☔"},
+                {"content": "좋은 날씨", "weather": "sunny", "emoji": "😎"},
+                {"content": "한강 가기 좋은 날", "weather": "clear", "emoji": "🏞️"},
+                {"content": "축구하기 딱 좋은 날", "weather": "cloudy", "emoji": "⚽"},
+                {"content": "우산 필요 없는 날", "weather": "clear", "emoji": "😃"},
+                {"content": "비올 때는 집에서 영화", "weather": "rainy", "emoji": "🎬"},
+                {"content": "산책하기 좋은 날씨", "weather": "clear", "emoji": "🚶"},
+                {"content": "오늘 너무 덥다", "weather": "sunny", "emoji": "😓"},
+                {"content": "내일은 비올 것 같아", "weather": "rainy", "emoji": "☔"},
+                {"content": "좋은 날씨", "weather": "sunny", "emoji": "😎"},
+                {"content": "한강 가기 좋은 날", "weather": "clear", "emoji": "🏞️"},
+                {"content": "축구하기 딱 좋은 날", "weather": "cloudy", "emoji": "⚽"},
+                {"content": "우산 필요 없는 날", "weather": "clear", "emoji": "😃"},
+                {"content": "비올 때는 집에서 영화", "weather": "rainy", "emoji": "🎬"},
+                {"content": "산책하기 좋은 날씨", "weather": "clear", "emoji": "🚶"},
+                {"content": "오늘 너무 덥다", "weather": "sunny", "emoji": "😓"},
+                {"content": "내일은 비올 것 같아", "weather": "rainy", "emoji": "☔"},
+                {"content": "좋은 날씨", "weather": "sunny", "emoji": "😎"},
+                {"content": "한강 가기 좋은 날", "weather": "clear", "emoji": "🏞️"},
+                {"content": "축구하기 딱 좋은 날", "weather": "cloudy", "emoji": "⚽"},
+                {"content": "우산 필요 없는 날", "weather": "clear", "emoji": "😃"},
+                {"content": "비올 때는 집에서 영화", "weather": "rainy", "emoji": "🎬"},
+                {"content": "산책하기 좋은 날씨", "weather": "clear", "emoji": "🚶"}
+            ]
+        """.trimIndent()
 
+        val jsonArray = JSONArray(jsonData)
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+            val content = jsonObject.getString("content")
+            val weather = jsonObject.getString("weather")
+            val emoji = jsonObject.getString("emoji")
+
+            val data = OdosModel(LocalDate.now(), "$content $weather $emoji")
+            odosList.add(data)
+        }
+
+        binding.odosRecyclerView.adapter?.notifyDataSetChanged()
     }
 
 }

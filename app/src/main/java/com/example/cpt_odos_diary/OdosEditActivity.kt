@@ -16,8 +16,8 @@ class OdosEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_odos_edit)
 
-        val btnOpenOdosFragment = findViewById<ImageView>(R.id.iv_odosback)
-        btnOpenOdosFragment.setOnClickListener {
+        val backbtn = findViewById<ImageView>(R.id.iv_odosback)
+        backbtn.setOnClickListener {
             finish()
         }
     }
