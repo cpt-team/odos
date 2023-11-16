@@ -76,15 +76,11 @@ class SignupActivity : AppCompatActivity(){
             ) {
                 if(response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "signUp Post 성공 : ${response.body()}")
-                    Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
-                    Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
-                    Log.d(ContentValues.TAG, "성공 success : ${response.body()?.success}")
+
                 }
                 else {
                     Log.d(ContentValues.TAG, "signUp Post 실패 : ${response.body()}")
-                    Log.d(ContentValues.TAG, "실패 message : ${response.body()?.message}")
-                    Log.d(ContentValues.TAG, "실패 status : ${response.body()?.status}")
-                    Log.d(ContentValues.TAG, "실패 success : ${response.body()?.success}")
+
                 }
 
             }

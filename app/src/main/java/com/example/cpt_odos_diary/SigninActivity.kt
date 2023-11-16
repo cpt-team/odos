@@ -68,15 +68,8 @@ class SigninActivity : AppCompatActivity() {
              ) {
                  if(response.body()?.success == true) {
                      Log.d(ContentValues.TAG, "signIn Post 성공 : ${response.body()}")
-                     Log.d(ContentValues.TAG, "signIn Post성공 message : ${response.body()?.message}")
-                     Log.d(ContentValues.TAG, "signIn Post성공 status : ${response.body()?.status}")
-                     Log.d(ContentValues.TAG, "signIn Post성공 success : ${response.body()?.success}")
-                     Log.d(ContentValues.TAG, "signIn Post성공 success : ${response.body()?.data}")
 
-                    // 리사이클러뷰 똑같이 쓸텐데
-                    // 데이터 값을 변수에 저장해서 쓰고 싶다.  많이 복잡하다.. 가능하면 response처리는 여기서 다!
-                     // 해결방식은 함수를 따로 만들어서 호출해요
-                     //
+
                     //response.body()?.success
 
                      // shared Preference 캐시 // jwt, uid 안드로이드에 캐싱처리
@@ -88,9 +81,6 @@ class SigninActivity : AppCompatActivity() {
                  }
                  else {
                      Log.d(ContentValues.TAG, "signIn Post 실패 : ${response.body()}")
-                     Log.d(ContentValues.TAG, "signIn Post실패 message : ${response.body()?.message}")
-                     Log.d(ContentValues.TAG, "signIn Post실패 status : ${response.body()?.status}")
-                     Log.d(ContentValues.TAG, "signIn Post실패 success : ${response.body()?.success}")
                      Toast.makeText( applicationContext,"로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                  }
 
@@ -98,7 +88,7 @@ class SigninActivity : AppCompatActivity() {
              }
 
              override fun onFailure(call: Call<PostResSignIn>, t: Throwable) {
-                 Log.d(ContentValues.TAG, "POST 실패 : $t")
+                 Log.d(ContentValues.TAG, "signIn POST 통신 에러 : $t")
              }
 
          })

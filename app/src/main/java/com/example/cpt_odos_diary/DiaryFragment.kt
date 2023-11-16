@@ -65,7 +65,7 @@ class DiaryFragment : Fragment() {
         var cMonth = onlyDate.monthValue // 11
         Log.d(TAG, "날짜는 $cYear, $cMonth")
 
-        var data : List<DataList>
+
 
         // diaryFragment 들어오자마자 현재 날짜에 맞는 데이터 받기.
         //데이터 호출
@@ -104,7 +104,13 @@ class DiaryFragment : Fragment() {
                             else{
 
                                 // diary create 페이지 만들기
+
                                 Log.d(TAG,"data 존재하지 않음")
+                                // DiaryEditActivity로 이동하는 Intent를 생성
+                                val intent = Intent(activity, DiaryEditActivity::class.java)
+                                // 날짜 정보를 Intent에 추가
+                                intent.putExtra("selectedDate", selectedDate.timeInMillis)                                // DiaryEditActivity 시작
+                                startActivity(intent)
                             }
 
 
@@ -113,17 +119,6 @@ class DiaryFragment : Fragment() {
                         }
 
 
-
-
-
-                        // DiaryEditActivity로 이동하는 Intent를 생성
-                        val intent = Intent(activity, DiaryEditActivity::class.java)
-
-                        // 날짜 정보를 Intent에 추가
-                        intent.putExtra("selectedDate", selectedDate.timeInMillis)
-
-                        // DiaryEditActivity 시작
-                        startActivity(intent)
                     }
 
 
@@ -213,24 +208,19 @@ fun resultGetAllDiary(callAllDiary : Call<GetResCallAllDiary>, onSuccess: (List<
         ) {
             if(response.body()?.success == true) {
                 Log.d(ContentValues.TAG, "/diary get 성공 : ${response.body()}")
-                Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
-                Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
-                Log.d(ContentValues.TAG, "성공 success : ${response.body()?.success}")
-                Log.d(ContentValues.TAG, "성공 data : ${response.body()?.data}")
+
                 onSuccess(response.body()?.data!!)
 
 
             }
             else {
                 Log.d(ContentValues.TAG, "/diary get 실패 : ${response.body()}")
-                Log.d(ContentValues.TAG, "실패 message : ${response.body()?.message}")
-                Log.d(ContentValues.TAG, "실패 status : ${response.body()?.status}")
-                Log.d(ContentValues.TAG, "실패 success : ${response.body()?.success}")
+
             }
         }
 
         override fun onFailure(call: Call<GetResCallAllDiary>, t: Throwable) {
-            Log.d(ContentValues.TAG, "/diary get 실패 : $t")
+            Log.d(ContentValues.TAG, "/diary get 통신 에러: $t")
         }
 
     })
