@@ -95,17 +95,25 @@ class DiaryFragment : Fragment() {
                         // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
                         for (i in it.indices) {
                             Log.d(TAG, "data: "+ it[i].createAt.split(" ")[0])
+
                             // data[]에 날짜 데이터가 존재할 경우.
                             if (it[i].createAt.split(" ")[0] == formattedDate){
                                 // intent로 존재하는 데이터 뿌려주기
                                 Log.d(TAG,"data 존재함")
+                                val intent = Intent(activity, DiaryGetActivity::class.java)
+                                // 날짜 정보를 Intent에 추가
+                                intent.putExtra("selectedDate", selectedDate.timeInMillis)
 
+                                // 데이터 존재할 시 데이터 가져옴.
+                                intent.putExtra("diaryId",it[i].did)
+
+                                startActivity(intent)
                             }
                             else{
 
                                 // diary create 페이지 만들기
 
-                                Log.d(TAG,"data 존재하지 않음")
+                                //Log.d(TAG,"data 존재하지 않음")
                                 // DiaryEditActivity로 이동하는 Intent를 생성
                                 val intent = Intent(activity, DiaryEditActivity::class.java)
                                 // 날짜 정보를 Intent에 추가
