@@ -11,6 +11,9 @@ data class GetResCallDiary (
 
 data class DiaryList(
     @SerializedName("title") val title : String,
-    @SerializedName("") val createAt : String
+    @SerializedName("content") val content : String,
+    @SerializedName("emotion") val emotion : String,
+    @SerializedName("whether") val whether : String,
+
 )
 

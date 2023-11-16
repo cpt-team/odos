@@ -121,6 +121,7 @@ class DiaryEditActivity : AppCompatActivity() {
                     onSuccess = {
                         Log.d(TAG, "/diary DID: $it")
                     })
+                finish()
             }
 
 

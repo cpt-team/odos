@@ -91,6 +91,8 @@ class DiaryFragment : Fragment() {
                         val formattedDate = dateFormat.format(selectedDate.timeInMillis)
                         // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
 
+                        calendarView.dateTextAppearance
+
 
                         // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
                         for (i in it.indices) {
@@ -108,6 +110,8 @@ class DiaryFragment : Fragment() {
                                 intent.putExtra("diaryId",it[i].did)
 
                                 startActivity(intent)
+
+
                             }
                             else{
 
@@ -119,6 +123,7 @@ class DiaryFragment : Fragment() {
                                 // 날짜 정보를 Intent에 추가
                                 intent.putExtra("selectedDate", selectedDate.timeInMillis)                                // DiaryEditActivity 시작
                                 startActivity(intent)
+
                             }
 
 
