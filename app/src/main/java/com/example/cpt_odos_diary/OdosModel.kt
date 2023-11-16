@@ -6,5 +6,5 @@ import java.time.LocalDate
 
 data class OdosModel(
     val date: LocalDate,
-    val content: String,
+    val content: String
 )
