@@ -103,36 +103,48 @@ class OdosFragment : Fragment() {
             ) {
                 if (response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "/odos get 성공 : ${response.body()}")
+
+                    // 데이터 널값을 허용을 안한다.. 글이 하나도 없는 경우에는? 처음에;
                     val it = response.body()?.data!!
                     for (i in it.indices) {
                         val data = OdosModel(it[i].content,it[i].createAt,it[i].emotion,it[i].whether)
                         Log.d(TAG,"data: $data")
                         odosList.add(data)
-                        binding.odosRecyclerView.adapter?.notifyDataSetChanged()
 
+                    }
+                    for (i in it.indices) {
 
-                       // 현재 시간과 동일한 날짜에 데이터가 이미 존재할 경우, 버튼 동작 x
-                        if(it[i].createAt != LocalDate.now().toString()){
+                        // 현재 시간과 동일한 날짜에 데이터가 이미 존재할 경우, 버튼 동작 x
+                        if(it[i].createAt != LocalDate.now().toString() || it.isEmpty()){
+                            Log.d(TAG,"data 함수 동작")
                             // OdosEditActivity로 이동
-                                binding.odosPlus.setOnClickListener {
+                            binding.odosPlus.setOnClickListener {
+                                Log.d(TAG,"data 함수 동작22")
                                 val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
                                 startActivity(odosPlusIntent)
                             }
                         }
-                        if(it[i].createAt == LocalDate.now().toString()){
+                        if(it[i].createAt == LocalDate.now().toString()) {
                             // 이미 데이터 있는데 버튼 눌렀을 경우
                             binding.odosPlus.setOnClickListener {
-                                Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
-
-
                     }
+                    binding.odosRecyclerView.adapter?.notifyDataSetChanged()
+
+
 
 
                 } else {
                     Log.d(ContentValues.TAG, "/odos get 실패 : ${response.body()}")
+                    binding.odosPlus.setOnClickListener {
+                        Log.d(TAG,"data 실패시 버튼 활성화")
+                        val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
+                        startActivity(odosPlusIntent)
+                    }
 
                 }
             }
