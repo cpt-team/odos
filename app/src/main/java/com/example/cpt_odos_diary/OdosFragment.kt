@@ -5,6 +5,8 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cpt_odos_diary.App.App
@@ -29,6 +32,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
+import java.util.Locale
 
 class OdosFragment : Fragment() {
     lateinit var binding: FragmentOdosBinding
@@ -51,21 +55,19 @@ class OdosFragment : Fragment() {
         // req /diary에 사용할 데이터 변수 선언
         val uid: String? = App.token_prefs.uid
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
-        val onlyDate: LocalDate = LocalDate.now()
+        val onlyDate: LocalDate = LocalDate.now() // 2023-11-17
         var cYear = onlyDate.year // 2023
         var cMonth = onlyDate.monthValue // 11
+
         Log.d(ContentValues.TAG, "날짜는 $cYear, $cMonth")
+
+
+
 
         if (uid != null) {
             prepare(binding, uid, odosApi, cYear, cMonth)
         }
 
-
-        // OdosEditActivity로 이동
-        binding.odosPlus.setOnClickListener {
-            val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
-            startActivity(odosPlusIntent)
-        }
         return binding.root
     }
 
@@ -93,6 +95,7 @@ class OdosFragment : Fragment() {
 
     fun resultGetAllOdos(callAllOdos: Call<GetResCallAllOdos>) {
         callAllOdos.enqueue(object : Callback<GetResCallAllOdos> {
+            @RequiresApi(Build.VERSION_CODES.O)
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(
                 call: Call<GetResCallAllOdos>,
@@ -106,6 +109,25 @@ class OdosFragment : Fragment() {
                         Log.d(TAG,"data: $data")
                         odosList.add(data)
                         binding.odosRecyclerView.adapter?.notifyDataSetChanged()
+
+
+                       // 현재 시간과 동일한 날짜에 데이터가 이미 존재할 경우, 버튼 동작 x
+                        if(it[i].createAt != LocalDate.now().toString()){
+                            // OdosEditActivity로 이동
+                                binding.odosPlus.setOnClickListener {
+                                val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
+                                startActivity(odosPlusIntent)
+                            }
+                        }
+                        if(it[i].createAt == LocalDate.now().toString()){
+                            // 이미 데이터 있는데 버튼 눌렀을 경우
+                            binding.odosPlus.setOnClickListener {
+                                Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+
+
                     }
 
 
