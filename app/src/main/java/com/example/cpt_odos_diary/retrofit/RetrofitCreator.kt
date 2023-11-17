@@ -24,4 +24,5 @@ object RetrofitCreator {
     //인터페이스 객체를 create에 넘겨 실제 구현체 생성
     val signApi : LoginApi = retrofit.create(LoginApi::class.java)
     val diaryApi : DiaryApi = retrofit.create(DiaryApi::class.java)
+    val odosApi : OdosApi = retrofit.create(OdosApi::class.java)
 }

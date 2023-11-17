@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -17,8 +20,8 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import com.example.cpt_odos_diary.App.App
-import com.example.cpt_odos_diary.databinding.FragmentDiaryBinding
 import com.example.cpt_odos_diary.retrofit.DataList
 import com.example.cpt_odos_diary.retrofit.DiaryApi
 import com.example.cpt_odos_diary.retrofit.GetResCallAllDiary
@@ -43,6 +46,8 @@ class DiaryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_diary, container, false)
 
         val calendarView = view.findViewById<CalendarView>(R.id.calendarview)
+
+
 
 
         // 페이지 열릴 때 확인용
@@ -91,11 +96,11 @@ class DiaryFragment : Fragment() {
                         val formattedDate = dateFormat.format(selectedDate.timeInMillis)
                         // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
 
-                        calendarView.dateTextAppearance
-
-
                         // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
                         for (i in it.indices) {
+
+
+
                             Log.d(TAG, "data: "+ it[i].createAt.split(" ")[0])
 
                             // data[]에 날짜 데이터가 존재할 경우.
@@ -103,6 +108,7 @@ class DiaryFragment : Fragment() {
                                 // intent로 존재하는 데이터 뿌려주기
                                 Log.d(TAG,"data 존재함")
                                 val intent = Intent(activity, DiaryGetActivity::class.java)
+
                                 // 날짜 정보를 Intent에 추가
                                 intent.putExtra("selectedDate", selectedDate.timeInMillis)
 
@@ -112,17 +118,21 @@ class DiaryFragment : Fragment() {
                                 startActivity(intent)
 
 
+
                             }
-                            else{
 
-                                // diary create 페이지 만들기
+                            // diary 데이터가 존재하지 않을 때 create 페이지 호출
+                            if(it[i].createAt.split(" ")[0] != formattedDate){
 
-                                //Log.d(TAG,"data 존재하지 않음")
+                                Log.d(TAG,"data 나도 호출되냐?$formattedDate")
                                 // DiaryEditActivity로 이동하는 Intent를 생성
                                 val intent = Intent(activity, DiaryEditActivity::class.java)
+
+                                //intent.flags = FLAG_ACTIVITY_CLEAR_TOP
                                 // 날짜 정보를 Intent에 추가
-                                intent.putExtra("selectedDate", selectedDate.timeInMillis)                                // DiaryEditActivity 시작
+                                intent.putExtra("selectedDate", selectedDate.timeInMillis)
                                 startActivity(intent)
+
 
                             }
 

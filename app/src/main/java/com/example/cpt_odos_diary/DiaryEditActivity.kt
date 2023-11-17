@@ -27,8 +27,12 @@ import retrofit2.Response
 import java.util.Locale
 
 class DiaryEditActivity : AppCompatActivity() {
+
+
     lateinit var binding: ActivityDiaryEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
 
         binding = ActivityDiaryEditBinding.inflate(layoutInflater)
         setContentView(binding.root)

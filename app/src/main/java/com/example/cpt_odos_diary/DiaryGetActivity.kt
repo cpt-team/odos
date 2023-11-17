@@ -83,6 +83,7 @@ class DiaryGetActivity : AppCompatActivity() {
         val backBtn = binding.ivBack
         backBtn.setOnClickListener {
             finish()
+
         }
 
         checkIV.setOnClickListener {
