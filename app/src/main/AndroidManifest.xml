@@ -48,6 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".DiaryGetActivity"
+            android:launchMode="singleTop"
             android:exported="false"
 
             />

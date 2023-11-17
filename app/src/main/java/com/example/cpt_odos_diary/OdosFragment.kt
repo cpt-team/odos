@@ -50,6 +50,18 @@ class OdosFragment : Fragment() {
         binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
 
+
+       // return binding.root
+        return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,"data odos 호출됨")
+        binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
+
         //retrofit
         val odosApi: OdosApi = RetrofitCreator.odosApi
         // req /diary에 사용할 데이터 변수 선언
@@ -61,14 +73,11 @@ class OdosFragment : Fragment() {
 
         Log.d(ContentValues.TAG, "날짜는 $cYear, $cMonth")
 
-
-
-
+        odosList.clear()
         if (uid != null) {
             prepare(binding, uid, odosApi, cYear, cMonth)
         }
 
-        return binding.root
     }
 
 
@@ -83,9 +92,6 @@ class OdosFragment : Fragment() {
     ) {
 
         retrofitGetAllOdos(odosApi, uid, year.toString(), month.toString())
-
-
-
     }
 
     fun retrofitGetAllOdos(odosApi: OdosApi, uid: String, year: String, month: String) {
@@ -104,6 +110,7 @@ class OdosFragment : Fragment() {
                 if (response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "/odos get 성공 : ${response.body()}")
 
+
                     // 데이터 널값을 허용을 안한다.. 글이 하나도 없는 경우에는? 처음에;
                     val it = response.body()?.data!!
                     for (i in it.indices) {
@@ -112,11 +119,22 @@ class OdosFragment : Fragment() {
                         odosList.add(data)
 
                     }
-                    for (i in it.indices) {
+                    loop@ for (i in it.indices) {
+
+                        if(it[i].createAt == LocalDate.now().toString()) {
+                            // 이미 데이터 있는데 버튼 눌렀을 경우
+                            binding.odosPlus.setOnClickListener {
+                                Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT)
+                                    .show()
+
+                            }
+                            break@loop
+                        }
 
                         // 현재 시간과 동일한 날짜에 데이터가 이미 존재할 경우, 버튼 동작 x
                         if(it[i].createAt != LocalDate.now().toString() || it.isEmpty()){
-                            Log.d(TAG,"data 함수 동작")
+                            Log.d(TAG,"data 함수 동작${it[i].createAt}")
+                            Log.d(TAG,"data 함수 동작${LocalDate.now()}")
                             // OdosEditActivity로 이동
                             binding.odosPlus.setOnClickListener {
                                 Log.d(TAG,"data 함수 동작22")
@@ -124,13 +142,7 @@ class OdosFragment : Fragment() {
                                 startActivity(odosPlusIntent)
                             }
                         }
-                        if(it[i].createAt == LocalDate.now().toString()) {
-                            // 이미 데이터 있는데 버튼 눌렀을 경우
-                            binding.odosPlus.setOnClickListener {
-                                Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }
+
 
                     }
                     binding.odosRecyclerView.adapter?.notifyDataSetChanged()
