@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.navigationView.selectedItemId = R.id.tabhome
-
 
         binding.navigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -37,8 +35,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
     }
 
     private fun setFragment(tag: String, fragment: Fragment) {
@@ -107,6 +103,5 @@ class MainActivity : AppCompatActivity() {
         fragTransaction.commitAllowingStateLoss()
         // App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG, "토큰: $it1") }
     }
-
 }
 

@@ -17,10 +17,6 @@ interface DiaryApi {
         @Query("month") month : String
     ) : Call<GetResCallAllDiary>
 
-
-
-
-
     @Headers("Content-Type: application/json")  //@Headers 어노테이션 이용해 헤더값 넣어주기
     @POST("/diary")                         //HTTP 메소드를 설정해주고 API와 URL 작성
     fun postCreateDiary(
@@ -29,9 +25,5 @@ interface DiaryApi {
 
         @Body postReqCreateDiary: PostReqCreateDiary
     ) : Call<PostResCreateDiary>
-
-
-
-
 
 }

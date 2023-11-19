@@ -20,6 +20,5 @@ class OdosAdapter(val context: Context, val data: MutableList<OdosModel>) :Recyc
         val odos = data[position]
 
         binding.content.text = odos.content
-
     }
 }

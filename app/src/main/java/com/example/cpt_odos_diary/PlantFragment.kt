@@ -23,6 +23,12 @@ class PlantFragment : Fragment() {
             startActivity(guideIntent)
         }
 
+        binding.test.setOnClickListener{
+            val intent = Intent(requireContext(), PlantChoiceActivity::class.java)
+            startActivity(intent)
+        }
+
+
         return binding.root
     }
 }

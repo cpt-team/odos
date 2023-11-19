@@ -31,23 +31,13 @@ import java.util.Locale
 
 
 class DiaryFragment : Fragment() {
-
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-
-
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_diary, container, false)
-
         val calendarView = view.findViewById<CalendarView>(R.id.calendarview)
-
-
         // 페이지 열릴 때 확인용
         Log.d(TAG, "/diary페이지 시작")
-
         //retrofit
         val diaryApi: DiaryApi = RetrofitCreator.diaryApi
 
@@ -58,14 +48,11 @@ class DiaryFragment : Fragment() {
         val previousBtn = view.findViewById<TextView>(R.id.previousMonthBtn)
         val afterBtn = view.findViewById<TextView>(R.id.afterMonthBtn)
 
-
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
         val onlyDate: LocalDate = LocalDate.now()
         var cYear = onlyDate.year // 2023
         var cMonth = onlyDate.monthValue // 11
         Log.d(TAG, "날짜는 $cYear, $cMonth")
-
-
 
         // diaryFragment 들어오자마자 현재 날짜에 맞는 데이터 받기.
         //데이터 호출
@@ -79,7 +66,6 @@ class DiaryFragment : Fragment() {
                         // 달력 > 버튼 눌렀을 때 year,month값 받아오기
                         // -> year,month 값을 계속 관찰.. 현재값과 다를경우 새로운 변수 넣기
 
-
                         // 클릭한 날짜 정보를 가져오기
                         val selectedDate = Calendar.getInstance()
                         selectedDate.set(year, month, dayOfMonth)
@@ -90,7 +76,6 @@ class DiaryFragment : Fragment() {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         val formattedDate = dateFormat.format(selectedDate.timeInMillis)
                         // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
-
 
                         // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
                         for (i in it.indices) {
@@ -110,9 +95,7 @@ class DiaryFragment : Fragment() {
                                 startActivity(intent)
                             }
                             else{
-
                                 // diary create 페이지 만들기
-
                                 //Log.d(TAG,"data 존재하지 않음")
                                 // DiaryEditActivity로 이동하는 Intent를 생성
                                 val intent = Intent(activity, DiaryEditActivity::class.java)
@@ -120,23 +103,9 @@ class DiaryFragment : Fragment() {
                                 intent.putExtra("selectedDate", selectedDate.timeInMillis)                                // DiaryEditActivity 시작
                                 startActivity(intent)
                             }
-
-
-
-
                         }
-
-
                     }
-
-
-
-
-
-
                 })
-
-
         } else {
             Log.d(TAG, "uid가 존재하지 않습니다")
         }
@@ -154,7 +123,6 @@ class DiaryFragment : Fragment() {
                         Log.d(TAG, "cMonth: $cMonth, cYear: $cYear")
                     }
 
-
                     //데이터 호출
                     if (uid != null) {
                         retrofitGetAllDiary(
@@ -166,12 +134,10 @@ class DiaryFragment : Fragment() {
                     } else {
                         Log.d(TAG, "uid가 존재하지 않습니다")
                     }
-
                 }
             }
             false
         }
-
         // 달력 오른쪽 버튼 눌렀을 때!!
         afterBtn.setOnTouchListener { _, event ->
             when (event?.action) {
@@ -194,20 +160,13 @@ class DiaryFragment : Fragment() {
             }
             false
         }
-
-
-
         return view
     }
 }
-
-
 fun retrofitGetAllDiary(diaryApi: DiaryApi, uid : String, year: String, month: String, onSuccess: (List<DataList>) -> Unit = {}){
-
     val callAllDiary = diaryApi.getCallAllDiary(uid,year,month)
     resultGetAllDiary(callAllDiary,onSuccess)
 }
-
 fun resultGetAllDiary(callAllDiary : Call<GetResCallAllDiary>, onSuccess: (List<DataList>) -> Unit = {}){
     callAllDiary.enqueue(object : Callback<GetResCallAllDiary>{
         override fun onResponse(
@@ -218,19 +177,15 @@ fun resultGetAllDiary(callAllDiary : Call<GetResCallAllDiary>, onSuccess: (List<
                 Log.d(ContentValues.TAG, "/diary get 성공 : ${response.body()}")
 
                 onSuccess(response.body()?.data!!)
-
-
             }
             else {
                 Log.d(ContentValues.TAG, "/diary get 실패 : ${response.body()}")
 
             }
         }
-
         override fun onFailure(call: Call<GetResCallAllDiary>, t: Throwable) {
             Log.d(ContentValues.TAG, "/diary get 통신 에러: $t")
         }
-
     })
 }
 
