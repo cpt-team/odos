@@ -1,10 +1,8 @@
-package com.example.cpt_odos_diary.model
-
-import java.time.LocalDate
-
-
+package com.example.cpt_odos_diary
 
 data class OdosModel(
-    val date: LocalDate,
-    val content: String,
+    val content : String,
+    val createAt : String,
+    val emotion : String,
+    val whether : String
 )

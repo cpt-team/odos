@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,12 +77,14 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/RB_sunny"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
                 android:background="@drawable/selector_btn_sun"/>
 
             <RadioButton
+                android:id="@+id/RB_sunnyCloudy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -90,6 +92,7 @@
                 android:background="@drawable/selector_btn_cloudy"/>
 
             <RadioButton
+                android:id="@+id/RB_windy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -97,6 +100,7 @@
                 android:background="@drawable/selector_btn_cloud"/>
 
             <RadioButton
+                android:id="@+id/RB_Cloudy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -104,6 +108,7 @@
                 android:background="@drawable/selector_btn_bad_cloud"/>
 
             <RadioButton
+                android:id="@+id/RB_rainy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -111,6 +116,7 @@
                 android:background="@drawable/selector_btn_rainy"/>
 
             <RadioButton
+                android:id="@+id/RB_snowy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -146,12 +152,14 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/RB_happy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
                 android:background="@drawable/selector_btn_smiling"/>
 
             <RadioButton
+                android:id="@+id/RB_love"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -159,6 +167,7 @@
                 android:background="@drawable/selector_btn_love"/>
 
             <RadioButton
+                android:id="@+id/RB_sleepy"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -166,6 +175,7 @@
                 android:background="@drawable/selector_btn_sleep"/>
 
             <RadioButton
+                android:id="@+id/RB_sad"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -173,6 +183,7 @@
                 android:background="@drawable/selector_btn_crying"/>
 
             <RadioButton
+                android:id="@+id/RB_fine"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"
@@ -180,6 +191,7 @@
                 android:background="@drawable/selector_btn_wow"/>
 
             <RadioButton
+                android:id="@+id/RB_angry"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:button="@null"

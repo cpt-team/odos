@@ -12,8 +12,12 @@ import com.example.cpt_odos_diary.databinding.ActivityDiaryEditBinding
 import com.example.cpt_odos_diary.databinding.ActivityDiaryGetBinding
 import com.example.cpt_odos_diary.retrofit.DiaryApi
 import com.example.cpt_odos_diary.retrofit.DiaryId
+import com.example.cpt_odos_diary.retrofit.DiaryList
+import com.example.cpt_odos_diary.retrofit.GetResCallDiary
 import com.example.cpt_odos_diary.retrofit.PostReqCreateDiary
 import com.example.cpt_odos_diary.retrofit.PostResCreateDiary
+import com.example.cpt_odos_diary.retrofit.PutReqUpdateDiary
+import com.example.cpt_odos_diary.retrofit.PutResUpdateDiary
 import com.example.cpt_odos_diary.retrofit.RetrofitCreator
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,51 +48,111 @@ class DiaryGetActivity : AppCompatActivity() {
             Log.d(ContentValues.TAG, "date: " + formattedDate) // 받은 날짜 보여줌.
         }
 
-        val diaryId = intent.getLongExtra("diaryId",0)
+        val diaryId : String? = intent.getStringExtra("diaryId")
 
         //retrofit
         val diaryApi: DiaryApi = RetrofitCreator.diaryApi
+
+        // 데이터 받아와서 뿌려주기.
+        if (diaryId != null) {
+            retrofitGetDiary(diaryApi,diaryId,
+                onSuccess = {
+                    binding.Etitle.setText(it[0].title)
+                    binding.Econtent.setText(it[0].content)
+                    when(it[0].emotion){
+                        "sad" -> binding.RBSad.isChecked = true
+                        "happy" -> binding.RBHappy.isChecked = true
+                        "fine" -> binding.RBFine.isChecked = true
+                        "love" -> binding.RBLove.isChecked = true
+                        "angry" -> binding.RBAngry.isChecked = true
+                        "sleepy" -> binding.RBSleepy.isChecked = true
+                    }
+                    when(it[0].whether){
+                        "sunny" -> binding.RBSunny.isChecked = true
+                        "windy" -> binding.RBWindy.isChecked = true
+                        "cloudy" -> binding.RBCloudy.isChecked = true
+                        "rainy" -> binding.RBRainy.isChecked = true
+                        "snowy" -> binding.RBSnowy.isChecked = true
+                        "sunnyCloudy" -> binding.RBSunnyCloudy.isChecked = true
+                    }
+
+                })
+        }
 
 
         val backBtn = binding.ivBack
         backBtn.setOnClickListener {
             finish()
+
         }
 
-    }
+        checkIV.setOnClickListener {
+            val title: String = binding.Etitle.text.toString()
+            val content: String = binding.Econtent.text.toString()
+
+            val emotions = binding.rgMood
+            val whethers = binding.rgWeather
+
+
+            val whether: String = when (whethers.checkedRadioButtonId) {
+                R.id.RB_sunny -> "sunny"
+                R.id.RB_sunnyCloudy -> "sunnyCloudy"
+                R.id.RB_windy -> "windy"
+                R.id.RB_Cloudy -> "cloudy"
+                R.id.RB_rainy -> "rainy"
+                R.id.RB_snowy -> "snowy"
+                else -> "null"
+            }
+            val emotion: String = when (emotions.checkedRadioButtonId) {
+                R.id.RB_happy -> "happy"
+                R.id.RB_love -> "love"
+                R.id.RB_sleepy -> "sleepy"
+                R.id.RB_sad -> "sad"
+                R.id.RB_fine -> "fine"
+                R.id.RB_angry -> "angry"
+
+                else -> {
+                    "null"
+                }
+            }
+
+            intent.getStringExtra("diaryId")
+                ?.let { it1 -> retrofitPutDiary(diaryApi, it1,title, content, emotion, whether) }
+            finish()
+        }
+
+
+    } // onCreate()
 
 
 }
-/*
-fun retrofitPostCreateDiary(diaryApi: DiaryApi, uid : String, title: String, content: String, emotion: String, whether:String,
-                            onSuccess: (List<DiaryId>) -> Unit = {}){
 
-    val requestData = PostReqCreateDiary(uid,title,content,emotion,whether)
-    val createDiary = diaryApi.postCreateDiary(requestData)
-    resultPostCreateDiary(createDiary,onSuccess)
+fun retrofitGetDiary(diaryApi: DiaryApi,id : String,
+                            onSuccess: (List<DiaryList>) -> Unit = {}){
+
+
+    val callDiary = diaryApi.getCallDiary(id)
+    resultGetDiary(callDiary,onSuccess)
 }
 
-fun resultPostCreateDiary(createDiary : Call<PostResCreateDiary>, onSuccess: (List<DiaryId>) -> Unit = {}){
-    createDiary.enqueue(object : Callback<PostResCreateDiary> {
-        override fun onResponse(
-            call: Call<PostResCreateDiary>,
-            response: Response<PostResCreateDiary>
-        ) {
+fun resultGetDiary(callDiary : Call<GetResCallDiary>, onSuccess: (List<DiaryList>) -> Unit = {}){
+    callDiary.enqueue(object : Callback<GetResCallDiary> {
+        override fun onResponse(call: Call<GetResCallDiary>, response: Response<GetResCallDiary>) {
             if(response.body()?.success == true) {
-                Log.d(ContentValues.TAG, "/diary post 성공 : ${response.body()}")
+                Log.d(ContentValues.TAG, "/diary/diarys get callDiary 성공 : ${response.body()}")
                 Log.d(ContentValues.TAG,"/diary data: ${response.body()?.data}")
 
                 onSuccess(response.body()?.data!!)
 
             }
             else {
-                Log.d(ContentValues.TAG, "/diary post 실패 : ${response.body()}")
+                Log.d(ContentValues.TAG, "/diary/diarys get callDiary 실패 : ${response.body()}")
 
             }
         }
 
-        override fun onFailure(call: Call<PostResCreateDiary>, t: Throwable) {
-            Log.d(ContentValues.TAG, "/diary post 통신 에러 : $t")
+        override fun onFailure(call: Call<GetResCallDiary>, t: Throwable) {
+            Log.d(ContentValues.TAG, "/diary/diarys get callDiary 통신 에러 : $t")
         }
 
     })
@@ -96,4 +160,33 @@ fun resultPostCreateDiary(createDiary : Call<PostResCreateDiary>, onSuccess: (Li
 
 }
 
- */
+fun retrofitPutDiary(diaryApi: DiaryApi,id : String, title:String, content:String, emotion: String, whether:String){
+    val requestData = PutReqUpdateDiary(id,title,content,emotion,whether)
+    val callDiary = diaryApi.putUpdateDiary(requestData)
+    resultPutUpdateDiary(callDiary)
+}
+
+fun resultPutUpdateDiary(callDiary : Call<PutResUpdateDiary>){
+    callDiary.enqueue(object : Callback<PutResUpdateDiary> {
+        override fun onResponse(
+            call: Call<PutResUpdateDiary>,
+            response: Response<PutResUpdateDiary>
+        ) {
+            if(response.body()?.success == true) {
+                Log.d(ContentValues.TAG, "/diary put Diary 성공 : ${response.body()}")
+            }
+            else {
+                Log.d(ContentValues.TAG, "/diary put Diary 실패 : ${response.body()}")
+
+            }
+        }
+
+        override fun onFailure(call: Call<PutResUpdateDiary>, t: Throwable) {
+            Log.d(ContentValues.TAG, "/diary put Diary 통신 에러 : $t")
+        }
+
+    })
+
+
+}
+

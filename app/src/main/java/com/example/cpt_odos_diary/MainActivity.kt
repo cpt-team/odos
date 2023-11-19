@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 //import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.ActivityMainBinding
@@ -18,26 +19,35 @@ private const val TAG_Diary = "Diary_Fragment"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.navigationView.selectedItemId = R.id.tabhome
-
-        binding.navigationView.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.tabplant -> setFragment(TAG_Plant, PlantFragment())
-                R.id.tabguide -> setFragment(TAG_Guide, PlantGuideFragment())
-                R.id.tabhome -> setFragment(TAG_HOME, HomeFragment())
-                R.id.tabodos -> setFragment(TAG_Odos, OdosFragment())
-                R.id.tabdiary-> setFragment(TAG_Diary, DiaryFragment())
-            }
-            true
-        }
+        setFragment(supportFragmentManager,TAG_HOME, HomeFragment())
     }
+        override fun onResume() {
+            super.onResume()
+            binding.navigationView.setOnItemSelectedListener { item ->
+                when(item.itemId) {
+                    R.id.tabplant -> setFragment(supportFragmentManager,TAG_Plant, PlantFragment())
+                    R.id.tabguide -> setFragment(supportFragmentManager,TAG_Guide, PlantGuideFragment())
+                    R.id.tabhome -> setFragment(supportFragmentManager,TAG_HOME, HomeFragment())
+                    R.id.tabodos -> setFragment(supportFragmentManager,TAG_Odos, OdosFragment())
+                    R.id.tabdiary-> setFragment(supportFragmentManager,TAG_Diary, DiaryFragment())
+                }
+                true
+            }
+        }
 
-    private fun setFragment(tag: String, fragment: Fragment) {
+
+
+}
+
+    private fun setFragment(supportFragmentManager : FragmentManager,tag: String, fragment: Fragment) {
+
         val manager: FragmentManager = supportFragmentManager
         val fragTransaction = manager.beginTransaction()
 
@@ -102,6 +112,9 @@ class MainActivity : AppCompatActivity() {
 
         fragTransaction.commitAllowingStateLoss()
         // App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG, "토큰: $it1") }
-    }
 }
+
+
+
+
 

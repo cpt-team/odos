@@ -25,4 +25,5 @@ object RetrofitCreator {
     val signApi : LoginApi = retrofit.create(LoginApi::class.java)
     val diaryApi : DiaryApi = retrofit.create(DiaryApi::class.java)
     val plantApi: PlantApi = retrofit.create(PlantApi::class.java)
+    val odosApi : OdosApi = retrofit.create(OdosApi::class.java)
 }

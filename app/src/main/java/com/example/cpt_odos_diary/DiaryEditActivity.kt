@@ -27,8 +27,13 @@ import retrofit2.Response
 import java.util.Locale
 
 class DiaryEditActivity : AppCompatActivity() {
+
+
     lateinit var binding: ActivityDiaryEditBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         binding = ActivityDiaryEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         super.onCreate(savedInstanceState)
@@ -63,28 +68,16 @@ class DiaryEditActivity : AppCompatActivity() {
             val whethers = binding.rgWeather
 
             val whether: String = when (whethers.checkedRadioButtonId) {
-                R.id.RB_sunny -> {
-                    "sunny"
-                }
-                R.id.RB_sunnyCloudy -> {
-                    "sunnyCloudy"
-                }
-                R.id.RB_windy -> {
-                    "windy"
-                }
-                R.id.RB_Cloudy -> {
-                    "cloudy"
-                }
-                R.id.RB_rainy -> {
-                    "rainy"
-                }
-                R.id.RB_snowy -> {
-                    "snowy"
-                }
-                else -> {
-                    "null"
-                }
+                R.id.RB_sunny -> "sunny"
+
+                R.id.RB_sunnyCloudy -> "sunnyCloudy"
+                R.id.RB_windy -> "windy"
+                R.id.RB_Cloudy -> "cloudy"
+                R.id.RB_rainy -> "rainy"
+                R.id.RB_snowy -> "snowy"
+                else -> "null"
             }
+
             val emotion: String = when (emotions.checkedRadioButtonId) {
                 R.id.RB_happy -> "happy"
                 R.id.RB_love -> "love"
@@ -92,11 +85,9 @@ class DiaryEditActivity : AppCompatActivity() {
                 R.id.RB_sad -> "sad"
                 R.id.RB_fine -> "fine"
                 R.id.RB_angry -> "angry"
-
-                else -> {
-                    "null"
-                }
+                else -> "null"
             }
+
             Log.d(TAG, "data: $uid, ${binding.Etitle.text}, $content, $emotion, $whether")
 
             // 데이터 서버로 전송하고 다시 다이어리 탭으로 돌아가기
@@ -106,6 +97,7 @@ class DiaryEditActivity : AppCompatActivity() {
                     onSuccess = {
                         Log.d(TAG, "/diary DID: $it")
                     })
+                finish()
             }
         }
         val backbtn = findViewById<ImageView>(R.id.iv_back)

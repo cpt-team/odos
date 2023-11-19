@@ -1,11 +1,13 @@
 package com.example.cpt_odos_diary.adapter
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cpt_odos_diary.OdosModel
 import com.example.cpt_odos_diary.databinding.OdosItemBinding
-import com.example.cpt_odos_diary.model.OdosModel
 
 class OdosViewHolder(val binding: OdosItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -18,7 +20,7 @@ class OdosAdapter(val context: Context, val data: MutableList<OdosModel>) :Recyc
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as OdosViewHolder).binding
         val odos = data[position]
-
+        Log.d(TAG,"data odos: $odos")
         binding.content.text = odos.content
     }
 }
