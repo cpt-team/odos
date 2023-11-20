@@ -27,35 +27,35 @@ class PlantGuideFragment : Fragment() {
 
     private fun prepare() {
         val plantimg = intArrayOf(
-            R.drawable.gypsophila1,
-            R.drawable.gypsophila2,
-            R.drawable.gypsophila3,
-            R.drawable.gypsophila4,
-            R.drawable.gypsophila5,
-            R.drawable.gypsophila6,
-            R.drawable.gypsophila7,
-            R.drawable.gypsophila8,
-            R.drawable.gypsophila9,
-            R.drawable.gypsophila10)
-        var data = Plantpedia(plantimg[0], "gypsophila1", "50%")
+            R.drawable.chrysanthemum1,
+            R.drawable.chrysanthemum2,
+            R.drawable.chrysanthemum3,
+            R.drawable.chrysanthemum4,
+            R.drawable.chrysanthemum5,
+            R.drawable.gypsophila_white1,
+            R.drawable.gypsophila_white2,
+            R.drawable.gypsophila_white3,
+            R.drawable.gypsophila_white4,
+            R.drawable.gypsophila_white5)
+        var data = Plantpedia(plantimg[0], "국화 1단계", "20%")
         plantList.add(data)
-        data = Plantpedia(plantimg[1], "gypsophila2", "90%")
+        data = Plantpedia(plantimg[1], "국화 2단계", "40%")
         plantList.add(data)
-        data = Plantpedia(plantimg[2], "gypsophila3","90%")
+        data = Plantpedia(plantimg[2], "국화 3단계","60%")
         plantList.add(data)
-        data = Plantpedia(plantimg[3], "gypsophila4","90%")
+        data = Plantpedia(plantimg[3], "국화 4단계","80%")
         plantList.add(data)
-        data = Plantpedia(plantimg[4], "gypsophila5","90%")
+        data = Plantpedia(plantimg[4], "국화 5단계","100%")
         plantList.add(data)
-        data = Plantpedia(plantimg[5], "gypsophila6","90%")
+        data = Plantpedia(plantimg[5], "흰 안개꽃 1단계","20%")
         plantList.add(data)
-        data = Plantpedia(plantimg[6], "gypsophila7","90%")
+        data = Plantpedia(plantimg[6], "흰 안개꽃 2단계","40%")
         plantList.add(data)
-        data = Plantpedia(plantimg[7], "gypsophila8","90%")
+        data = Plantpedia(plantimg[7], "흰 안개꽃 3단계","60%")
         plantList.add(data)
-        data = Plantpedia(plantimg[8], "gypsophila9","90%")
+        data = Plantpedia(plantimg[8], "흰 안개꽃 4단계","80%")
         plantList.add(data)
-        data = Plantpedia(plantimg[9], "gypsophila10","80%")
+        data = Plantpedia(plantimg[9], "흰 안개꽃 5단계","100%")
         plantList.add(data)
         MyAdapter(activity as Context, plantList)?.notifyDataSetChanged()
     }

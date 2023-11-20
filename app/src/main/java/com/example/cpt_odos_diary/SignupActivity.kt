@@ -27,31 +27,22 @@ class  SignupActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val submitBtn = binding.submitButton
-
         // 레트로핏 객체
         val signApi : LoginApi = RetrofitCreator.signApi
 
-
-
         submitBtn.setOnClickListener{
-
-
-
             /*
             // Date타입 형식 맞추기
             val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
             Log.d(TAG,"시간: ${simpleDateFormat.parse(binding.birthTextviewInputEditText.text.toString()) }")
             */
 
-
             // 회원정보를 변수에 넣어서 보낼거에요
             val email : String = binding.emailTextInputEditText.text.toString()
             val pw : String = binding.passwordTextInputEditText.text.toString()
             val name : String = binding.nameTextInputEditText.text.toString()
             val birth : String = binding.birthTextviewInputEditText.text.toString()   // 형식 맞춰서 보내기
-
 
             // 서버로 데이터 전송
             val requestData = PostReqSignUp(email, name, pw, birth)
@@ -70,11 +61,9 @@ class  SignupActivity : AppCompatActivity(){
             ) {
                 if(response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "signUp Post 성공 : ${response.body()}")
-
                 }
                 else {
                     Log.d(ContentValues.TAG, "signUp Post 실패 : ${response.body()}")
-
                 }
             }
             override fun onFailure(call: Call<PostResSignUp>, t: Throwable) {

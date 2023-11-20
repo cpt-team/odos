@@ -1,6 +1,4 @@
-
 package com.example.cpt_odos_diary.App
-
 
 import android.app.Application
 import android.content.Intent
@@ -13,11 +11,8 @@ class App: Application() {
         // 안드로이드 기기자체에 데이터를 저장해놓는거임.
         // 모든 뷰에서 쓸 수 있음
     }
-
     override fun onCreate() {
         super.onCreate()
-
-
         token_prefs = TokenSharedPreferences(applicationContext)
 
         /*
@@ -29,20 +24,12 @@ class App: Application() {
             val intent = Intent(this, SigninActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-
-
         }
         else{
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-
-
         }
          */
-
     }
-
-
-
 }

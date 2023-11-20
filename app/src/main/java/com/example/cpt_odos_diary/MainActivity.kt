@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.navigationView.selectedItemId = R.id.tabhome
         setFragment(supportFragmentManager,TAG_HOME, HomeFragment())
     }

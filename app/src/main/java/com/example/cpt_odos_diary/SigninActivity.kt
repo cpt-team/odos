@@ -26,40 +26,28 @@ class SigninActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         // retrofit 구현
         val btnEvent = binding.subBnt
         val signUpBtn = binding.signUpBtn
-
         // LoginApi의 내용을 포함한 retrofit 객체를 만드는데
         val signApi : LoginApi = RetrofitCreator.signApi
-
        btnEvent.setOnClickListener{
         val email : String = binding.ETemail.text.toString()
         val pw : String = binding.ETpw.text.toString()
         val requestData = PostReqSignIn(email,pw)
-
            // 데이터를 묶어서 반환값으로 res이미 받음. 어떻게 처리할건데?
         val callSignIn = signApi.postSignIn(requestData)
         resultPostSignIn(callSignIn);
-
-
         App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG,it1) }
-
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-
     }
-
     signUpBtn.setOnClickListener{
         val intent = Intent(this, SignupActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
-
-
 }
-
     private fun resultPostSignIn(callSignIn: Call<PostResSignIn>) {
          callSignIn.enqueue(object: Callback<PostResSignIn>{
              override fun onResponse(
@@ -68,10 +56,7 @@ class SigninActivity : AppCompatActivity() {
              ) {
                  if(response.body()?.success == true) {
                      Log.d(ContentValues.TAG, "signIn Post 성공 : ${response.body()}")
-
-
                     //response.body()?.success
-
                      // shared Preference 캐시 // jwt, uid 안드로이드에 캐싱처리
                      App.token_prefs.accessToken = response.body()?.data?.get(0)?.token
                      Log.d(TAG, "성공 token : ${App.token_prefs.accessToken}")// sharedPreference에 데이터 저장 후 호출
@@ -83,19 +68,10 @@ class SigninActivity : AppCompatActivity() {
                      Log.d(ContentValues.TAG, "signIn Post 실패 : ${response.body()}")
                      Toast.makeText( applicationContext,"로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                  }
-
-
              }
-
              override fun onFailure(call: Call<PostResSignIn>, t: Throwable) {
                  Log.d(ContentValues.TAG, "signIn POST 통신 에러 : $t")
              }
-
          })
-
     }
-
-
-
-
 }
