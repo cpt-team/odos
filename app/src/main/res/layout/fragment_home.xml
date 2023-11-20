@@ -34,9 +34,9 @@
         app:layout_constraintVertical_bias="0.148" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="406dp"
-        android:layout_height="49dp"
+        android:id="@+id/oneSentence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="명언한줄"
         android:textSize="24sp"
@@ -52,10 +52,10 @@
         android:layout_height="82dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734"
+        app:layout_constraintVertical_bias="0.739"
         app:srcCompat="@drawable/ic_achieve"
         tools:ignore="MissingConstraints" />
 
@@ -65,24 +65,11 @@
         android:layout_height="82dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.758"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734"
+        app:layout_constraintVertical_bias="0.738"
         app:srcCompat="@drawable/ic_setting"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/alarmButton"
-        android:layout_width="84dp"
-        android:layout_height="82dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.899"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.734"
-        app:srcCompat="@drawable/ic_alarm"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -103,17 +90,6 @@
         app:layout_constraintEnd_toEndOf="@+id/settingButton"
         app:layout_constraintStart_toStartOf="@+id/settingButton"
         app:layout_constraintTop_toBottomOf="@+id/settingButton" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="알람"
-        app:layout_constraintEnd_toEndOf="@+id/alarmButton"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="@+id/alarmButton"
-        app:layout_constraintTop_toBottomOf="@+id/alarmButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
