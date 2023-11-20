@@ -19,8 +19,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.retrofit.DataList
 import com.example.cpt_odos_diary.retrofit.DiaryApi
@@ -58,6 +60,7 @@ class DiaryFragment : Fragment() {
 
         // req /diary에 사용할 데이터 변수 선언
         val uid: String? = App.token_prefs.uid
+
         Log.d(TAG, "uid는 $uid")
 
         val previousBtn = view?.findViewById<TextView>(R.id.previousMonthBtn)
@@ -72,74 +75,103 @@ class DiaryFragment : Fragment() {
         // diaryFragment 들어오자마자 현재 날짜에 맞는 데이터 받기.
         //데이터 호출
         if (uid != null) {
-            retrofitGetAllDiary(diaryApi, uid.toString(), cYear.toString(), cMonth.toString(),
-                // 서버에서 받은 데이터를 it 변수에 리스트로 담고 있는 상태.
-                onSuccess = {
+            retrofitGetAllDiary(diaryApi, uid.toString(), cYear.toString(), cMonth.toString()
+            )
+            // 서버에서 받은 데이터를 it 변수에 리스트로 담고 있는 상태.
+            {
 
-                    // 날짜가 눌렸을 때 반응..
-                    if (calendarView != null) {
-                        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                            // 달력 > 버튼 눌렀을 때 year,month값 받아오기
-                            // -> year,month 값을 계속 관찰.. 현재값과 다를경우 새로운 변수 넣기
+                App.token_prefs.diaryCnt = it.size.toString()
+                val monthDate = mutableListOf<String>()
 
+                for (i in it.indices) {
+                    val date1 = it[i].createAt.split(" ")[0]
+                    monthDate.add(date1.split("-")[2])
+                }
 
-                            // 클릭한 날짜 정보를 가져오기
-                            val selectedDate = Calendar.getInstance()
-                            selectedDate.set(year, month, dayOfMonth)
+                Log.d(TAG,"monthDate: $monthDate")
+                val dateCheck = view?.findViewById<TextView>(R.id.monthDate)
+                if (dateCheck != null) {
+                    dateCheck.text = monthDate.toString()
+                }
 
-                            //Log.d(TAG,"date: ${selectedDate.timeInMillis}")
-                            Log.d(TAG, "date data: $it")
-
-                            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                            val formattedDate = dateFormat.format(selectedDate.timeInMillis)
-                            // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
-
-                            // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
-                            for (i in it.indices) {
-
-
-                                Log.d(TAG, "data: "+ it[i].createAt.split(" ")[0])
-
-                                // data[]에 날짜 데이터가 존재할 경우.
-                                if (it[i].createAt.split(" ")[0] == formattedDate){
-                                    // intent로 존재하는 데이터 뿌려주기
-                                    Log.d(TAG,"data 존재함")
-                                    val intent = Intent(activity, DiaryGetActivity::class.java)
-
-                                    // 날짜 정보를 Intent에 추가
-                                    intent.putExtra("selectedDate", selectedDate.timeInMillis)
-
-                                    // 데이터 존재할 시 데이터 가져옴.
-                                    intent.putExtra("diaryId",it[i].did)
-                                    intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK)
-                                    startActivity(intent)
-
-
-                                }
-
-                                // diary 데이터가 존재하지 않을 때 create 페이지 호출
-                                if(it[i].createAt.split(" ")[0] != formattedDate){
-
-                                    Log.d(TAG,"data 나도 호출되냐?$formattedDate")
-                                    // DiaryEditActivity로 이동하는 Intent를 생성
-                                    val intent = Intent(activity, DiaryEditActivity::class.java)
-
-                                    //intent.flags = FLAG_ACTIVITY_CLEAR_TOP
-                                    // 날짜 정보를 Intent에 추가
-                                    intent.putExtra("selectedDate", selectedDate.timeInMillis)
-                                    startActivity(intent)
+                Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
 
 
-                                }
+
+
+
+                // 날짜가 눌렸을 때 반응..
+                if (calendarView != null) {
+                    calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                        // 달력 > 버튼 눌렀을 때 year,month값 받아오기
+                        // -> year,month 값을 계속 관찰.. 현재값과 다를경우 새로운 변수 넣기
+
+                        Log.d(TAG,"date: $onlyDate")
+
+                        // 클릭한 날짜 정보를 가져오기
+                        val selectedDate = Calendar.getInstance()
+                        selectedDate.set(year, month, dayOfMonth)
+
+                        //Log.d(TAG,"date: ${selectedDate.timeInMillis}")
+                        Log.d(TAG, "date data: $it")
+
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val formattedDate = dateFormat.format(selectedDate.timeInMillis)
+                        // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
+                        Log.d(TAG,"date: $formattedDate")
+                        Log.d(TAG,"date: $onlyDate")
+                        if(formattedDate > onlyDate.toString()){
+                            Toast.makeText(context, "현재 날짜보다 앞선 날짜입니다!", Toast.LENGTH_SHORT).show()
+                            return@setOnDateChangeListener
+                        }
+
+
+                        // data[]을 반복문으로 돌려서 클릭한 날짜의 데이터가 존재하는 지 확인
+                        for (i in it.indices) {
+
+
+                            Log.d(TAG, "data: " + it[i].createAt.split(" ")[0])
+
+                            // data[]에 날짜 데이터가 존재할 경우.
+                            if (it[i].createAt.split(" ")[0] == formattedDate) {
+                                // intent로 존재하는 데이터 뿌려주기
+                                Log.d(TAG, "data 존재함")
+                                val intent = Intent(activity, DiaryGetActivity::class.java)
+
+                                // 날짜 정보를 Intent에 추가
+                                intent.putExtra("selectedDate", selectedDate.timeInMillis)
+
+                                // 데이터 존재할 시 데이터 가져옴.
+                                intent.putExtra("diaryId", it[i].did)
+                                intent.addFlags(FLAG_ACTIVITY_CLEAR_TASK)
+                                startActivity(intent)
+
+
+                            }
+
+                            // diary 데이터가 존재하지 않을 때 create 페이지 호출
+                            if (it[i].createAt.split(" ")[0] != formattedDate) {
+
+                                Log.d(TAG, "data 나도 호출되냐?$formattedDate")
+                                // DiaryEditActivity로 이동하는 Intent를 생성
+                                val intent = Intent(activity, DiaryEditActivity::class.java)
+
+                                //intent.flags = FLAG_ACTIVITY_CLEAR_TOP
+                                // 날짜 정보를 Intent에 추가
+                                intent.putExtra("selectedDate", selectedDate.timeInMillis)
+                                startActivity(intent)
 
 
                             }
 
 
                         }
+
+
                     }
-                })
+                }
+            }
         } else {
             Log.d(TAG, "uid가 존재하지 않습니다")
         }

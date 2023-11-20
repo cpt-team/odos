@@ -110,15 +110,33 @@ class OdosFragment : Fragment() {
                 if (response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "/odos get 성공 : ${response.body()}")
 
-
                     // 데이터 널값을 허용을 안한다.. 글이 하나도 없는 경우에는? 처음에;
                     val it = response.body()?.data!!
+                    val eList = mutableListOf<String>()
+                    val wList = mutableListOf<String>()
+
+
+
+                    Log.d(TAG,"cntOdos: ${App.token_prefs.odosCnt}")
                     for (i in it.indices) {
+                        eList.add(it[i].emotion)
+                        wList.add(it[i].whether)
                         val data = OdosModel(it[i].content,it[i].createAt,it[i].emotion,it[i].whether)
                         Log.d(TAG,"data: $data")
                         odosList.add(data)
 
                     }
+                    // odos개수 캐싱
+                    App.token_prefs.odosCnt = it.size.toString()
+                    // emotion 캐싱
+                    App.token_prefs.emotionList = eList.distinct()
+                    Log.d(TAG,"CntELIST:${App.token_prefs.emotionList}")
+                    Log.d(TAG,"CntELISTCNT:${App.token_prefs.emotionList!!.size}")
+                    // whether 캐싱
+                    App.token_prefs.whetherList = wList.distinct()
+                    Log.d(TAG,"CntWLIST:${App.token_prefs.whetherList}")
+                    Log.d(TAG,"CntWLISTCNT:${App.token_prefs.whetherList!!.size}")
+
                     loop@ for (i in it.indices) {
 
                         if(it[i].createAt == LocalDate.now().toString()) {

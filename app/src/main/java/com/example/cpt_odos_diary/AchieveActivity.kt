@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cpt_odos_diary.App.App
 
 
 class AchieveActivity : AppCompatActivity() {
@@ -13,36 +14,85 @@ class AchieveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achieve)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         val recyclerView: RecyclerView = findViewById(R.id.achievement_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val AchievementList = generateAchievementList()
+        val achievementList = generateAchievementList()
 
-        val adapter = AchievementAdapter(AchievementList)
+        val adapter = AchievementAdapter(achievementList)
         recyclerView.adapter = adapter
 
-        val achievementbackbtn = findViewById<ImageView>(R.id.iv_achievementback)
-        achievementbackbtn.setOnClickListener {
+        val achievementBackBtn = findViewById<ImageView>(R.id.iv_achievementback)
+        achievementBackBtn.setOnClickListener {
             finish()
         }
     }
 
+}
+
+
     private fun generateAchievementList(): List<Achievement> {
+        val diaryCnt = App.token_prefs.diaryCnt
+        val odosCnt = App.token_prefs.odosCnt
+        val emotionList = App.token_prefs.emotionList
+        val whetherList = App.token_prefs.whetherList
         val achievementList = mutableListOf<Achievement>()
 
-        achievementList.add(Achievement("첫 다이어리 작성", "다이어리 작성 해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("첫 다이어리 작성", "다이어리 작성 해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("일주일 연속 다이어리 작성", "일주일 동안 매일 다이어리 작성하기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("긴급 상황에서 다이어리 작성", "긴급한 상황에서도 다이어리를 작성해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("다이어리 공유", "다이어리를 친구나 가족과 공유해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("오늘의 감사 일기 작성", "하루에 감사한 일을 기록하기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("다이어리 테마 변경", "다이어리의 테마를 바꿔보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("다이어리에 그림 첨부", "다이어리에 그림이나 사진을 첨부해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("다이어리 카테고리 설정", "다이어리에 카테고리를 설정해보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("다이어리 검색 활용", "다이어리 검색 기능을 활용하여 특정 일기를 찾아보기", R.drawable.ic_achieve))
-        achievementList.add(Achievement("일기장 성취", "다양한 주제로 일기를 작성하여 일기장을 완성하기", R.drawable.ic_achieve))
+
+        if (diaryCnt != null) {
+            if(diaryCnt.toInt() > 0){
+                achievementList.add(Achievement("첫 다이어리 작성", "다이어리 작성 해보기", R.drawable.ic_achieve,true))
+            }
+            else if(diaryCnt.toInt() == 0){
+                achievementList.add(Achievement("첫 다이어리 작성", "다이어리 작성 해보기", R.drawable.ic_achieve,false))
+            }
+        }
+
+        if (odosCnt != null) {
+            if(odosCnt.toInt() > 0){
+                achievementList.add(Achievement("첫 odos 작성", "odos 작성 해보기", R.drawable.ic_achieve,true))
+            }
+            else if(odosCnt.toInt() == 0){
+                achievementList.add(Achievement("첫 odos 작성", "odos 작성 해보기", R.drawable.ic_achieve,false))
+            }
+        }
+        if (odosCnt != null && diaryCnt != null) {
+            if((odosCnt.toInt()+diaryCnt.toInt()) >= 7){
+                achievementList.add(Achievement("7일동안 나를 기록해요", "다이어리, odos 7개 작성", R.drawable.ic_achieve,true))
+            }
+            else if((odosCnt.toInt()+diaryCnt.toInt()) < 7){
+                achievementList.add(Achievement("7일동안 나를 기록해요", "다이어리, odos 7개 작성", R.drawable.ic_achieve,false))
+            }
+        }
+
+        if (emotionList != null) {
+            if(emotionList.size == 5){
+                achievementList.add(Achievement("내 감정에 솔직하기", "odos의 emotion 다 써보기", R.drawable.ic_achieve,true))
+            }
+            else if(emotionList.size < 5){
+                achievementList.add(Achievement("내 감정에 솔직하기", "odos의 emotion 다 써보기", R.drawable.ic_achieve,false))
+            }
+        }
+        if (whetherList != null) {
+            if(whetherList.size == 5){
+                achievementList.add(Achievement("너의 하루는?", "whether 다 써보기", R.drawable.ic_achieve,true))
+            }
+            else if(whetherList.size < 5){
+                achievementList.add(Achievement("너의 하루는?", "whether 다 써보기", R.drawable.ic_achieve,false))
+            }
+        }
+
+        achievementList.add(Achievement("식물은 어떻게 성장하나요?", "식물 다음 단계로 성장시켜보기", R.drawable.ic_achieve,false))
+        achievementList.add(Achievement("식물에 스킨 적용해보기", "식물의 스킨 적용해보기", R.drawable.ic_achieve,false))
+        achievementList.add(Achievement("행복한 내 식물", "한 식물을 다 키워보기", R.drawable.ic_achieve,false))
+        achievementList.add(Achievement("두 번째 선택", "두 번째 식물을 키워보기 ", R.drawable.ic_achieve,false))
+        achievementList.add(Achievement("잊지 말기", "연속 100일 작성", R.drawable.ic_achieve,false))
+        achievementList.add(Achievement("명언 마스터", "모든 명언 확인하기", R.drawable.ic_achieve,false))
 
         return achievementList
-
     }
-}
+

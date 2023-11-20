@@ -32,7 +32,7 @@ class PlantChoiceActivity : AppCompatActivity() {
     private fun getAllPlants(call: Call<GetResAllPlants>) {
         call.enqueue(object: Callback<GetResAllPlants>{
             override fun onResponse(call: Call<GetResAllPlants>, response: Response<GetResAllPlants>) {
-                if(response.isSuccessful) {
+                if(response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "식물 가져오기 성공 : ${response.body()}")
                     Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
                     Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
