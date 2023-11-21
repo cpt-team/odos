@@ -55,6 +55,11 @@ class PlantAdapter(val context: Context, val data: MutableList<Plant>) : Recycle
             val call = Api.postPlantChoice(reqData)
             postPlantChoice(call)
 
+            App.token_prefs.plantName = plant.plantName
+            App.token_prefs.plantDesc = plant.plantDesc
+            App.token_prefs.floriography = plant.floriography
+
+
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
@@ -63,11 +68,21 @@ class PlantAdapter(val context: Context, val data: MutableList<Plant>) : Recycle
     private fun postPlantChoice(call: Call<PostResPlantChoice>) {
         call.enqueue(object: Callback<PostResPlantChoice> {
             override fun onResponse(call: Call<PostResPlantChoice>, response: Response<PostResPlantChoice>) {
-                Log.d(ContentValues.TAG, "Post 성공 : ${response.body()}")
-                Log.d(ContentValues.TAG, "성공 message : ${response.body()?.message}")
-                Log.d(ContentValues.TAG, "성공 status : ${response.body()?.status}")
-                Log.d(ContentValues.TAG, "성공 success : ${response.body()?.success}")
-                Log.d(ContentValues.TAG, "데이터 : ${response.body()?.data}")
+
+                if(response.body()?.success == true) {
+                    Log.d(ContentValues.TAG, "plant choice Post 성공 : ${response.body()}")
+                    Log.d(ContentValues.TAG, "plant choice Post 성공 message : ${response.body()?.message}")
+                    Log.d(ContentValues.TAG, "plant choice Post 성공 status : ${response.body()?.status}")
+                    Log.d(ContentValues.TAG, "plant choice Post 성공 success : ${response.body()?.success}")
+                    Log.d(ContentValues.TAG, "plant choice Post 성공 데이터 : ${response.body()?.data}")
+                }
+                else{
+                    Log.d(ContentValues.TAG, "plant choice Post 실패 : ${response.body()}")
+                    Log.d(ContentValues.TAG, "plant choice Post 실패 message : ${response.body()?.message}")
+                    Log.d(ContentValues.TAG, "plant choice Post 실패 status : ${response.body()?.status}")
+                    Log.d(ContentValues.TAG, "plant choice Post 실패 success : ${response.body()?.success}")
+                    Log.d(ContentValues.TAG, "plant choice Post 실패 데이터 : ${response.body()?.data}")
+                }
             }
             override fun onFailure(call: Call<PostResPlantChoice>, t: Throwable) {
                 Log.d(ContentValues.TAG, "Post 실패 : $t")

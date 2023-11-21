@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.ActivityPlantChoiceBinding
 import com.example.cpt_odos_diary.retrofit.GetResAllPlants
 import com.example.cpt_odos_diary.retrofit.PlantApi
@@ -41,6 +42,7 @@ class PlantChoiceActivity : AppCompatActivity() {
 
                     response.body()?.data?.let { dataPrepare(it) }
                     binding.plantChoiceViewpager.adapter = PlantAdapter(this@PlantChoiceActivity, plnatList)
+
                 }
                 else{
                     Log.d(ContentValues.TAG, "식물 가져오기 실패 : ${response.body()}")

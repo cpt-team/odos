@@ -12,6 +12,12 @@ class TokenSharedPreferences(context: Context) {
     private val key_diaryCnt = "diaryCnt"
     private val key_emotionList = "emotionList"
     private val key_whetherList = "whetherList"
+    private val key_plantName = "plantName"
+    private val key_floriography = "floriography"
+    private val key_plantDesc = "plantDesc"
+    private val key_podSkin = "basicPod"
+    private val key_backSckin = "basicBack"
+    private val key_plantLevel = "plantLevel"
 
 
     private val prefs: SharedPreferences = context.getSharedPreferences(prefsFilename, 0)
@@ -37,6 +43,30 @@ class TokenSharedPreferences(context: Context) {
             prefs.edit().putString(key_whetherList, odosListString).apply()
         }
 
+
+    var plantName : String?
+        get() = prefs.getString(key_plantName, "")
+        set(value) = prefs.edit().putString(key_plantName, value).apply()
+
+    var floriography : String?
+        get() = prefs.getString(key_floriography, "")
+        set(value) = prefs.edit().putString(key_floriography, value).apply()
+
+    var plantDesc : String?
+        get() = prefs.getString(key_plantDesc, "")
+        set(value) = prefs.edit().putString(key_plantDesc, value).apply()
+
+    var podSkin : String?
+        get() = prefs.getString(key_podSkin, "")
+        set(value) = prefs.edit().putString(key_podSkin, value).apply()
+
+    var backSkin : String?
+        get() = prefs.getString(key_backSckin, "")
+        set(value) = prefs.edit().putString(key_backSckin, value).apply()
+
+    var plantLevel : Int?
+        get() = prefs.getInt(key_plantLevel, 1)
+        set(value) = prefs.edit().putInt(key_plantLevel, value?:1).apply()
 
     var odosCnt : String?
         get() = prefs.getString(key_odosCnt, "")
