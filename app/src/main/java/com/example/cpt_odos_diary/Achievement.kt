@@ -5,5 +5,6 @@ data class Achievement
     (val title: String,
      val desc: String,
      val coverResId: Int,
-     val isActive : Boolean
+     val isActive : Boolean,
+            val rewardId : Int
             )
