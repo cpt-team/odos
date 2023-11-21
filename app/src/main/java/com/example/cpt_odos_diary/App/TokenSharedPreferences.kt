@@ -18,12 +18,22 @@ class TokenSharedPreferences(context: Context) {
     private val key_podSkin = "basicPod"
     private val key_backSckin = "basicBack"
     private val key_plantLevel = "plantLevel"
+    private val key_dayList = "dayList"
 
 
     private val prefs: SharedPreferences = context.getSharedPreferences(prefsFilename, 0)
     val editor : SharedPreferences.Editor = prefs.edit()
 
 
+    var dayList : List<String>?
+        get() {
+            val dayListString = prefs.getString(key_dayList,"")
+            return stringToList(dayListString?: "")
+        }
+        set(value) {
+            val dayListString = value?.let { listToString(it) }
+            prefs.edit().putString(key_dayList, dayListString).apply()
+        }
     var emotionList : List<String>?
         get() {
             val emotionListString = prefs.getString(key_emotionList,"")
@@ -33,6 +43,7 @@ class TokenSharedPreferences(context: Context) {
             val odosListString = value?.let { listToString(it) }
             prefs.edit().putString(key_emotionList, odosListString).apply()
         }
+
     var whetherList : List<String>?
         get() {
             val whetherListString = prefs.getString(key_whetherList,"")

@@ -21,7 +21,8 @@ interface DiaryApi {
     @Headers("Content-Type: application/json")
     @GET("/diary/diarys")
     fun getCallDiary(
-        @Query("id") id: String
+        @Query("uid") uid: String,
+        @Query("createAt") createAt: String
     ) : Call<GetResCallDiary>
 
 

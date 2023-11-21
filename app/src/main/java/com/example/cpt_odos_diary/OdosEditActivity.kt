@@ -77,6 +77,8 @@ class OdosEditActivity : AppCompatActivity() {
             if (uid != null) {
                 retrofitPostCreateOdos(odosApi,uid,content,emotion,whether)
             }
+
+            Toast.makeText(applicationContext, "odos를 작성하였습니다!!", Toast.LENGTH_SHORT).show()
         }
 
 

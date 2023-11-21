@@ -4,18 +4,14 @@ import android.content.ContentValues
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cpt_odos_diary.App.App
-import com.example.cpt_odos_diary.databinding.ActivityDiaryEditBinding
 import com.example.cpt_odos_diary.databinding.ActivityDiaryGetBinding
 import com.example.cpt_odos_diary.retrofit.DiaryApi
-import com.example.cpt_odos_diary.retrofit.DiaryId
 import com.example.cpt_odos_diary.retrofit.DiaryList
 import com.example.cpt_odos_diary.retrofit.GetResCallDiary
-import com.example.cpt_odos_diary.retrofit.PostReqCreateDiary
-import com.example.cpt_odos_diary.retrofit.PostResCreateDiary
 import com.example.cpt_odos_diary.retrofit.PutReqUpdateDiary
 import com.example.cpt_odos_diary.retrofit.PutResUpdateDiary
 import com.example.cpt_odos_diary.retrofit.RetrofitCreator
@@ -35,10 +31,10 @@ class DiaryGetActivity : AppCompatActivity() {
 
         val dateTextView = binding.dateTextView
         val checkIV = binding.ivCheck
+        val uid = App.token_prefs.uid
 
         // Intent에서 선택한 날짜 정보를 추출
         val selectedDateMillis = intent.getLongExtra("selectedDate", 0)
-        if (selectedDateMillis > 0) {
             val selectedDate = Calendar.getInstance()
             selectedDate.timeInMillis = selectedDateMillis
             // 선택한 날짜를 TextView에 표시
@@ -46,20 +42,17 @@ class DiaryGetActivity : AppCompatActivity() {
             val formattedDate = dateFormat.format(selectedDate.time)
             dateTextView.text = formattedDate
             Log.d(ContentValues.TAG, "date: " + formattedDate) // 받은 날짜 보여줌.
-        }
 
-        val diaryId : String? = intent.getStringExtra("diaryId")
 
         //retrofit
         val diaryApi: DiaryApi = RetrofitCreator.diaryApi
 
-        // 데이터 받아와서 뿌려주기.
-        if (diaryId != null) {
-            retrofitGetDiary(diaryApi,diaryId,
+        if (uid != null) {
+            retrofitGetDiary(diaryApi, uid, formattedDate,
                 onSuccess = {
                     binding.Etitle.setText(it[0].title)
                     binding.Econtent.setText(it[0].content)
-                    when(it[0].emotion){
+                    when (it[0].emotion) {
                         "sad" -> binding.RBSad.isChecked = true
                         "happy" -> binding.RBHappy.isChecked = true
                         "fine" -> binding.RBFine.isChecked = true
@@ -67,7 +60,7 @@ class DiaryGetActivity : AppCompatActivity() {
                         "angry" -> binding.RBAngry.isChecked = true
                         "sleepy" -> binding.RBSleepy.isChecked = true
                     }
-                    when(it[0].whether){
+                    when (it[0].whether) {
                         "sunny" -> binding.RBSunny.isChecked = true
                         "windy" -> binding.RBWindy.isChecked = true
                         "cloudy" -> binding.RBCloudy.isChecked = true
@@ -78,6 +71,7 @@ class DiaryGetActivity : AppCompatActivity() {
 
                 })
         }
+
 
 
         val backBtn = binding.ivBack
@@ -116,22 +110,27 @@ class DiaryGetActivity : AppCompatActivity() {
                 }
             }
 
-            intent.getStringExtra("diaryId")
-                ?.let { it1 -> retrofitPutDiary(diaryApi, it1,title, content, emotion, whether) }
+            if (uid != null) {
+                retrofitPutDiary(diaryApi,uid,formattedDate,title, content, emotion, whether)
+            }
+
             finish()
+            Toast.makeText(applicationContext, "diary 업데이트 되었습니다!!", Toast.LENGTH_SHORT).show()
         }
 
-
-    } // onCreate()
+    }
 
 
 }
 
-fun retrofitGetDiary(diaryApi: DiaryApi,id : String,
+
+
+
+fun retrofitGetDiary(diaryApi: DiaryApi,uid:String, createAt : String,
                             onSuccess: (List<DiaryList>) -> Unit = {}){
 
 
-    val callDiary = diaryApi.getCallDiary(id)
+    val callDiary = diaryApi.getCallDiary(uid,createAt)
     resultGetDiary(callDiary,onSuccess)
 }
 
@@ -160,8 +159,8 @@ fun resultGetDiary(callDiary : Call<GetResCallDiary>, onSuccess: (List<DiaryList
 
 }
 
-fun retrofitPutDiary(diaryApi: DiaryApi,id : String, title:String, content:String, emotion: String, whether:String){
-    val requestData = PutReqUpdateDiary(id,title,content,emotion,whether)
+fun retrofitPutDiary(diaryApi: DiaryApi,uid : String,createAt: String, title:String, content:String, emotion: String, whether:String){
+    val requestData = PutReqUpdateDiary(uid,createAt,title,content,emotion,whether)
     val callDiary = diaryApi.putUpdateDiary(requestData)
     resultPutUpdateDiary(callDiary)
 }
@@ -174,6 +173,7 @@ fun resultPutUpdateDiary(callDiary : Call<PutResUpdateDiary>){
         ) {
             if(response.body()?.success == true) {
                 Log.d(ContentValues.TAG, "/diary put Diary 성공 : ${response.body()}")
+
             }
             else {
                 Log.d(ContentValues.TAG, "/diary put Diary 실패 : ${response.body()}")
