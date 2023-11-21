@@ -42,10 +42,10 @@
         app:icon="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.786"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintVertical_bias="0.703" />
 
     <ImageView
         android:id="@+id/background"
@@ -120,15 +120,7 @@
             android:textSize="20sp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"/>
-        <TextView
-            android:id="@+id/today_song"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="오늘의 노래 : "
-            android:textSize="20sp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
+
         <TextView
             android:id="@+id/floriography"
             android:layout_width="match_parent"
@@ -174,15 +166,9 @@
             android:textSize="20sp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start"
-            android:text="볼빨간 사춘기 - 여행"
-            android:textSize="20sp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
-        <TextView
+            android:id="@+id/floriographyDesc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start"

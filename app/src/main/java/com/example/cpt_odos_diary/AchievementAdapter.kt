@@ -22,6 +22,7 @@ class AchievementAdapter(private val AchievementList: List<Achievement>) :
         val coverImageView: ImageView = itemView.findViewById(R.id.coverImageView)
         val titleTextView: TextView = itemView.findViewById(R.id.achievementTitle)
         val descTextView: TextView = itemView.findViewById(R.id.achievementDesc)
+        val rewardSkins : ImageView = itemView.findViewById(R.id.rewardItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementViewHolder {
@@ -36,6 +37,9 @@ class AchievementAdapter(private val AchievementList: List<Achievement>) :
         holder.coverImageView.setImageResource(currentAchievement.coverResId)
         holder.titleTextView.text = currentAchievement.title
         holder.descTextView.text = currentAchievement.desc
+        holder.rewardSkins.setImageResource(currentAchievement.rewardId)
+
+
         if (currentAchievement.isActive){
             holder.itemLayout.background = ColorDrawable(Color.GRAY)
         }

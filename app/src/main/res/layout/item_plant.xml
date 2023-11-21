@@ -14,11 +14,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/plantImages"
+            android:layout_width="250dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:src="@drawable/basicback" />
+
 
         <TextView
             android:id="@+id/plant_name"
@@ -40,10 +42,7 @@
             android:id="@+id/plant_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="여기는 식물에 대한 설명입니다zzzzzz
-            zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
-            zzzzzzzzzzzzzzzzzzzzzzzzzzzz
-            zzzzdddddddddddddddddddddddddddddd"
+            android:text="여기는 식물에 대한 설명입니다"
             android:textAlignment="center"
             android:textSize="15sp" />
 
@@ -54,6 +53,8 @@
             android:layout_gravity="center"
             android:text="선택하기"
             android:layout_marginTop="50dp"/>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
