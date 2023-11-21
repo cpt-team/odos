@@ -29,7 +29,7 @@ class PlantGuideFragment : Fragment() {
         val plantimg = intArrayOf(
             R.drawable.chrysanthemum1,
             R.drawable.chrysanthemum2,
-            R.drawable.chrysanthemum3,
+            R.drawable.chrysanthemum4,
             R.drawable.chrysanthemum4,
             R.drawable.chrysanthemum5,
             R.drawable.gypsophila_white1,
