@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.FragmentPlantBinding
 
@@ -46,6 +47,7 @@ class PlantFragment : Fragment() {
         val plantName = binding.plantName
         val floriographyDesc = binding.floriographyDesc
 
+
         App.token_prefs.backSkin = "snow6"
         App.token_prefs.podSkin = "smilepod"
 
@@ -68,7 +70,7 @@ class PlantFragment : Fragment() {
             "smilepod" -> pod.setImageResource(R.drawable.smilepod)
             "yellowpod" -> pod.setImageResource(R.drawable.yellowpod)
         }
-        when(App.token_prefs.backSkin){
+        when(App.token_prefs.backSkin) {
             "basicpod" -> background.setImageResource(R.drawable.basicback)
             "desert1" -> background.setImageResource(R.drawable.desert1)
             "desert2" -> background.setImageResource(R.drawable.desert2)
@@ -91,13 +93,5 @@ class PlantFragment : Fragment() {
         plantName.text = App.token_prefs.plantName
         floriographyDesc.text = App.token_prefs.floriography
 
-
-
-
-
     }
-
-
-
-
 }
