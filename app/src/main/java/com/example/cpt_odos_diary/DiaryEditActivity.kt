@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.ActivityDiaryEditBinding
 import com.example.cpt_odos_diary.retrofit.DataList
@@ -21,10 +22,13 @@ import com.example.cpt_odos_diary.retrofit.GetResCallAllDiary
 import com.example.cpt_odos_diary.retrofit.PostReqCreateDiary
 import com.example.cpt_odos_diary.retrofit.PostResCreateDiary
 import com.example.cpt_odos_diary.retrofit.RetrofitCreator
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.newFixedThreadPoolContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
+import kotlin.coroutines.coroutineContext
 
 class DiaryEditActivity : AppCompatActivity() {
 
@@ -95,7 +99,7 @@ class DiaryEditActivity : AppCompatActivity() {
                 Log.d(TAG, "data: $uid, $title, $content, $emotion, $whether")
                 retrofitPostCreateDiary(diaryApi, uid, title, content, emotion, whether,
                     onSuccess = {
-                        Log.d(TAG, "/diary DID: $it")
+                        Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
                     })
                 finish()
             }
@@ -107,26 +111,27 @@ class DiaryEditActivity : AppCompatActivity() {
     }
 }
     fun retrofitPostCreateDiary(diaryApi: DiaryApi, uid : String, title: String, content: String, emotion: String, whether:String,
-                                onSuccess: (List<DiaryId>) -> Unit = {}){
+                                onSuccess: (String) -> Unit = {}){
         val requestData = PostReqCreateDiary(uid,title,content,emotion,whether)
         val createDiary = diaryApi.postCreateDiary(requestData)
         resultPostCreateDiary(createDiary,onSuccess)
     }
 
-    fun resultPostCreateDiary(createDiary : Call<PostResCreateDiary>, onSuccess: (List<DiaryId>) -> Unit = {}){
+    fun resultPostCreateDiary(createDiary : Call<PostResCreateDiary>, onSuccess: (String) -> Unit = {}){
         createDiary.enqueue(object : Callback<PostResCreateDiary> {
             override fun onResponse(
                 call: Call<PostResCreateDiary>,
                 response: Response<PostResCreateDiary>
             ) {
+
                 if(response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "/diary post 성공 : ${response.body()}")
                     Log.d(TAG,"/diary data: ${response.body()?.data}")
-                    onSuccess(response.body()?.data!!)
+                    response.body()?.message?.let { onSuccess(it) }
                 }
                 else {
                     Log.d(ContentValues.TAG, "/diary post 실패 : ${response.body()}")
-                    
+                    response.body()?.message?.let { onSuccess(it) }
                 }
             }
             override fun onFailure(call: Call<PostResCreateDiary>, t: Throwable) {

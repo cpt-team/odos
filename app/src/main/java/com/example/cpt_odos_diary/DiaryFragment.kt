@@ -42,13 +42,6 @@ class DiaryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_diary, container, false)
 
 
-        return view
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onResume() {
-        super.onResume()
 
         val calendarView = view?.findViewById<CalendarView>(R.id.calendarview)
 
@@ -63,8 +56,6 @@ class DiaryFragment : Fragment() {
 
         Log.d(TAG, "uid는 $uid")
 
-        val previousBtn = view?.findViewById<TextView>(R.id.previousMonthBtn)
-        val afterBtn = view?.findViewById<TextView>(R.id.afterMonthBtn)
 
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
         val onlyDate: LocalDate = LocalDate.now()
@@ -75,7 +66,8 @@ class DiaryFragment : Fragment() {
         // diaryFragment 들어오자마자 현재 날짜에 맞는 데이터 받기.
         //데이터 호출
         if (uid != null) {
-            retrofitGetAllDiary(diaryApi, uid.toString(), cYear.toString(), cMonth.toString()
+            retrofitGetAllDiary(
+                diaryApi, uid.toString(), cYear.toString(), cMonth.toString()
             )
             // 서버에서 받은 데이터를 it 변수에 리스트로 담고 있는 상태.
             {
@@ -88,7 +80,7 @@ class DiaryFragment : Fragment() {
                     monthDate.add(date1.split("-")[2])
                 }
 
-                Log.d(TAG,"monthDate: $monthDate")
+                Log.d(TAG, "monthDate: $monthDate")
                 val dateCheck = view?.findViewById<TextView>(R.id.monthDate)
                 if (dateCheck != null) {
                     dateCheck.text = monthDate.toString()
@@ -97,17 +89,13 @@ class DiaryFragment : Fragment() {
                 Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
 
-
-
-
-
                 // 날짜가 눌렸을 때 반응..
                 if (calendarView != null) {
                     calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                         // 달력 > 버튼 눌렀을 때 year,month값 받아오기
                         // -> year,month 값을 계속 관찰.. 현재값과 다를경우 새로운 변수 넣기
 
-                        Log.d(TAG,"date: $onlyDate")
+                        Log.d(TAG, "date: $onlyDate")
 
                         // 클릭한 날짜 정보를 가져오기
                         val selectedDate = Calendar.getInstance()
@@ -119,9 +107,9 @@ class DiaryFragment : Fragment() {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         val formattedDate = dateFormat.format(selectedDate.timeInMillis)
                         // Log.d(TAG, "date: $formattedDate") // 받은 날짜 보여줌. 날짜 잘 나옴 ㅎㅎ
-                        Log.d(TAG,"date: $formattedDate")
-                        Log.d(TAG,"date: $onlyDate")
-                        if(formattedDate > onlyDate.toString()){
+                        Log.d(TAG, "date: $formattedDate")
+                        Log.d(TAG, "date: $onlyDate")
+                        if (formattedDate > onlyDate.toString()) {
                             Toast.makeText(context, "현재 날짜보다 앞선 날짜입니다!", Toast.LENGTH_SHORT).show()
                             return@setOnDateChangeListener
                         }
@@ -176,11 +164,37 @@ class DiaryFragment : Fragment() {
             Log.d(TAG, "uid가 존재하지 않습니다")
         }
 
+        return view
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        val previousBtn = view?.findViewById<TextView>(R.id.previousMonthBtn)
+        val afterBtn = view?.findViewById<TextView>(R.id.afterMonthBtn)
+
+        val diaryApi: DiaryApi = RetrofitCreator.diaryApi
+
+        // req /diary에 사용할 데이터 변수 선언
+        val uid: String? = App.token_prefs.uid
+
+        Log.d(TAG, "uid는 $uid")
+
+
+        // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
+        val onlyDate: LocalDate = LocalDate.now()
+        var cYear = onlyDate.year // 2023
+        var cMonth = onlyDate.monthValue // 11
+        Log.d(TAG, "날짜는 $cYear, $cMonth")
+
         // 달력 왼쪽 버튼 클릭되면 !!
         if (previousBtn != null) {
             previousBtn.setOnTouchListener { _, event ->
                 when (event?.action) {
                     MotionEvent.ACTION_DOWN -> {
+                        var dateCheck = view?.findViewById<TextView>(R.id.monthDate)
+                        dateCheck?.text = " "
                         if (cMonth == 1) {
                             cMonth = 12
                             cYear -= 1
@@ -197,8 +211,20 @@ class DiaryFragment : Fragment() {
                                 diaryApi,
                                 uid.toString(),
                                 cYear.toString(),
-                                cMonth.toString()
-                            )
+                                cMonth.toString()){
+                                    val monthDate = mutableListOf<String>()
+                                    for (i in it.indices) {
+                                        val date1 = it[i].createAt.split(" ")[0]
+                                        monthDate.add(date1.split("-")[2])
+                                    }
+                                    Log.d(TAG,"monthDate: $monthDate")
+                                    dateCheck = view?.findViewById<TextView>(R.id.monthDate)
+                                    if (dateCheck != null) {
+                                        dateCheck!!.text = monthDate.toString()
+                                    }
+
+
+                                }
                         } else {
                             Log.d(TAG, "uid가 존재하지 않습니다")
                         }
@@ -210,9 +236,12 @@ class DiaryFragment : Fragment() {
         }
         // 달력 오른쪽 버튼 눌렀을 때!!
         if (afterBtn != null) {
+            var dateCheck = view?.findViewById<TextView>(R.id.monthDate)
+            dateCheck?.text = " "
             afterBtn.setOnTouchListener { _, event ->
                 when (event?.action) {
                     MotionEvent.ACTION_DOWN -> {
+
                         if (cMonth == 12) {
                             cMonth = 1
                             cYear += 1
@@ -223,7 +252,19 @@ class DiaryFragment : Fragment() {
                         }
                         //데이터 호출
                         if (uid != null) {
-                            retrofitGetAllDiary(diaryApi, uid, cYear.toString(), cMonth.toString())
+                            retrofitGetAllDiary(diaryApi, uid, cYear.toString(), cMonth.toString()){
+                                val monthDate = mutableListOf<String>()
+                                for (i in it.indices) {
+                                    val date1 = it[i].createAt.split(" ")[0]
+                                    Log.d(TAG,"month:${it[i].createAt.split(" ")[0]}")
+                                    monthDate.add(date1.split("-")[2])
+                                }
+                                Log.d(TAG,"monthDate: $monthDate")
+                                dateCheck = view?.findViewById<TextView>(R.id.monthDate)
+                                if (dateCheck != null) {
+                                    dateCheck!!.text = monthDate.toString()
+                                }
+                            }
                         } else {
                             Log.d(TAG, "uid가 존재하지 않습니다")
                         }

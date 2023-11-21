@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
 
 
 fun Setences(): String {
-    val randNum = (Math.random()*30+1).toInt()
+    val randNum = (Math.random()*10).toInt()
 
     val sentences = mutableListOf(
         "실패하는 것은 결국 성공으로 한발짝 걸었다는 것이다.",
