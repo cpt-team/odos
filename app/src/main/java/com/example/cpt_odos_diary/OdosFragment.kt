@@ -1,6 +1,7 @@
 package com.example.cpt_odos_diary
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -14,6 +15,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +58,7 @@ class OdosFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
@@ -72,6 +76,54 @@ class OdosFragment : Fragment() {
         var cMonth = onlyDate.monthValue // 11
 
         Log.d(ContentValues.TAG, "날짜는 $cYear, $cMonth")
+        val odosCheck = binding.odosCheck
+        val odosText = binding.odosTextView
+        //  날짜 dialog
+        odosCheck.setOnClickListener {
+
+            val dialog = AlertDialog.Builder(context).create()
+            val edialog : LayoutInflater = LayoutInflater.from(context)
+            val mView : View = edialog.inflate(R.layout.dialog_datepicker,null)
+
+            val year : NumberPicker = mView.findViewById(R.id.yearpicker_datepicker)
+            val month : NumberPicker = mView.findViewById(R.id.monthpicker_datepicker)
+            val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
+            val save : Button = mView.findViewById(R.id.save_button_datepicker)
+
+            //  순환 안되게 막기
+            year.wrapSelectorWheel = false
+            month.wrapSelectorWheel = false
+
+            //  editText 설정 해제
+            year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+
+            //  최소값 설정
+            year.minValue = 2019
+            month.minValue = 1
+            //  최대값 설정
+            year.maxValue = 2024
+            month.maxValue = 12
+            //  취소 버튼 클릭 시
+            cancel.setOnClickListener {
+                dialog.dismiss()
+                dialog.cancel()
+            }
+            //  완료 버튼 클릭 시
+            save.setOnClickListener {
+                odosText.text = "${year.value}년 ${month.value}월"
+
+                dialog.dismiss()
+                dialog.cancel()
+            }
+
+            dialog.setView(mView)
+            dialog.create()
+            dialog.show()
+        }
+
+
+
 
         odosList.clear()
         if (uid != null) {

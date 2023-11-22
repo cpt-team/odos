@@ -96,10 +96,13 @@ class AchieveActivity : AppCompatActivity() {
 
 
         achievementList.add(Achievement("식물은 어떻게 성장하나요?", "식물 다음 단계로 성장시켜보기", R.drawable.ic_achieve,false,R.drawable.snow5))
+
+
         achievementList.add(Achievement("식물에 스킨 적용해보기", "식물의 스킨 적용해보기", R.drawable.ic_achieve,false,R.drawable.snow7))
         achievementList.add(Achievement("행복한 내 식물", "한 식물을 다 키워보기", R.drawable.ic_achieve,false,R.drawable.greenpod))
         achievementList.add(Achievement("두 번째 선택", "두 번째 식물을 키워보기 ", R.drawable.ic_achieve,false,R.drawable.field2))
         achievementList.add(Achievement("명언 마스터", "모든 명언 확인하기", R.drawable.ic_achieve,false,R.drawable.snow8))
+
 
         return achievementList
     }
