@@ -8,11 +8,30 @@
     tools:context=".OdosFragment">
 
 
+    <ImageView
+        android:id="@+id/iv_leftarrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrowleft"
+        app:layout_constraintBottom_toBottomOf="@+id/odos_textView"
+        app:layout_constraintEnd_toStartOf="@+id/odos_textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/odos_textView" />
+
+    <ImageView
+        android:id="@+id/iv_rightarrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrowright"
+        app:layout_constraintBottom_toBottomOf="@+id/odos_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/odos_textView"
+        app:layout_constraintTop_toTopOf="@+id/odos_textView" />
     <TextView
         android:id="@+id/odos_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="    2023년 10월   "
+        android:text="날짜"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
