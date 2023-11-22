@@ -68,14 +68,9 @@ class OdosFragment : Fragment() {
 
         //retrofit
         val odosApi: OdosApi = RetrofitCreator.odosApi
-        // req /diary에 사용할 데이터 변수 선언
-        val uid: String? = App.token_prefs.uid
-        // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
-        val onlyDate: LocalDate = LocalDate.now() // 2023-11-17
-        var cYear = onlyDate.year // 2023
-        var cMonth = onlyDate.monthValue // 11
 
-        Log.d(ContentValues.TAG, "날짜는 $cYear, $cMonth")
+
+
         val odosCheck = binding.odosCheck
         val odosText = binding.odosTextView
         //  날짜 dialog
@@ -99,35 +94,43 @@ class OdosFragment : Fragment() {
             month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
             //  최소값 설정
-            year.minValue = 2019
+            year.minValue = 2022
             month.minValue = 1
             //  최대값 설정
             year.maxValue = 2024
             month.maxValue = 12
+
+            year.displayedValues = arrayOf("2022년","2023년","2024년")
+            month.displayedValues = arrayOf("1월","2월","3월","4월","5월","6월","7월","8월","9월","10월",
+                "11월","12월",)
             //  취소 버튼 클릭 시
             cancel.setOnClickListener {
                 dialog.dismiss()
                 dialog.cancel()
             }
+
+
+
+            Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
             //  완료 버튼 클릭 시
             save.setOnClickListener {
                 odosText.text = "${year.value}년 ${month.value}월"
 
                 dialog.dismiss()
                 dialog.cancel()
+
+                odosList.clear()
+                prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
+
+
             }
 
             dialog.setView(mView)
             dialog.create()
             dialog.show()
-        }
 
 
 
-
-        odosList.clear()
-        if (uid != null) {
-            prepare(binding, uid, odosApi, cYear, cMonth)
         }
 
     }

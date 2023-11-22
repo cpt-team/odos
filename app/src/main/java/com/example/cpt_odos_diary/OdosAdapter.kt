@@ -22,7 +22,8 @@ class OdosAdapter(val context: Context, val data: MutableList<OdosModel>) :Recyc
         val binding = (holder as OdosViewHolder).binding
         val odos = data[position]
         Log.d(TAG,"data odos: $odos")
-        binding.content.text = odos.content
+        val day = odos.createAt.split("-")[2]
+        binding.content.text = "[${day}일] ${odos.content}"
         val emotion: Int = when (odos.emotion) {
             "happy" -> R.drawable.smiling
             "love" -> R.drawable.love

@@ -19,11 +19,20 @@ class TokenSharedPreferences(context: Context) {
     private val key_backSckin = "basicBack"
     private val key_plantLevel = "plantLevel"
     private val key_dayList = "dayList"
+    private val key_odosYear = "odosYear"
+    private val key_odosMonth = "odosMonth"
 
 
     private val prefs: SharedPreferences = context.getSharedPreferences(prefsFilename, 0)
     val editor : SharedPreferences.Editor = prefs.edit()
 
+
+    var odosYear : Int?
+        get() = prefs.getInt(key_odosYear, 1)
+        set(value) = prefs.edit().putInt(key_odosYear, value?:1).apply()
+    var odosMonth : Int?
+        get() = prefs.getInt(key_odosMonth, 1)
+        set(value) = prefs.edit().putInt(key_odosMonth, value?:1).apply()
 
     var dayList : List<String>?
         get() {
