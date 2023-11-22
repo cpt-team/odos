@@ -64,7 +64,7 @@
         android:id="@+id/plant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/tulip5"
+        android:src="@drawable/gypsophila_white1"
         app:layout_constraintBottom_toTopOf="@+id/pod"
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintHorizontal_bias="0.497"

@@ -1,5 +1,6 @@
 package com.example.cpt_odos_diary
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class PlantinfoAdpater (private val PlantinfoList: List<PlantinfoModel>) :
+class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
     RecyclerView.Adapter<PlantinfoAdpater.PlantinfoViewHolder>(){
 
 
@@ -21,7 +22,8 @@ class PlantinfoAdpater (private val PlantinfoList: List<PlantinfoModel>) :
         val coverImageView: ImageView = itemView.findViewById(R.id.iv_plantinfo)
         val titleTextView: TextView = itemView.findViewById(R.id.plantinfoTitle)
         val descTextView: TextView = itemView.findViewById(R.id.plantinfoDesc)
-        val plantswitch: SwitchCompat = itemView.findViewById(R.id.plantinfoSwitch)
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        val plantswitch: Switch = itemView.findViewById(R.id.plantinfoSwitch)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantinfoViewHolder {
@@ -30,11 +32,13 @@ class PlantinfoAdpater (private val PlantinfoList: List<PlantinfoModel>) :
         return PlantinfoViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: PlantinfoViewHolder, position: Int) {
+        val currentSkin = SkinList[position]
+        holder.coverImageView.setImageResource(currentSkin.coverResId)
+        holder.titleTextView.text = currentSkin.title
+        holder.descTextView.text = currentSkin.desc
     }
 
-    override fun onBindViewHolder(holder: PlantinfoViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() =SkinList.size
+
 }
