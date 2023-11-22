@@ -10,6 +10,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
@@ -37,6 +38,27 @@ class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
         holder.coverImageView.setImageResource(currentSkin.coverResId)
         holder.titleTextView.text = currentSkin.title
         holder.descTextView.text = currentSkin.desc
+
+
+        // 스위치에 대한 리스너 설정
+        updateItemView(holder, holder.plantswitch.isChecked)
+        holder.plantswitch.setOnCheckedChangeListener { _, isChecked ->
+            updateItemView(holder, isChecked)
+        }
+    }
+
+    private fun updateItemView(holder: PlantinfoViewHolder, isChecked: Boolean) {
+        if (isChecked) {
+            // 스위치가 켜진 경우
+            holder.cardView.setCardBackgroundColor(
+                ContextCompat.getColor(holder.itemView.context, R.color.originalCardColor)
+            )
+        } else {
+            // 스위치가 꺼진 경우
+            holder.cardView.setCardBackgroundColor(
+                ContextCompat.getColor(holder.itemView.context, R.color.grayedOutCardColor)
+            )
+        }
     }
 
     override fun getItemCount() =SkinList.size

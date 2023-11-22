@@ -7,4 +7,6 @@
     <color name="green">#FF62C050</color>
     <color name="brown">#A77EAC</color>
     <color name="skyBlue">#87CEEB</color>
+    <color name="originalCardColor">#FFFFFF</color> <!-- 원래의 색상 -->
+    <color name="grayedOutCardColor">#12CCCCCC</color> <!-- 스위치가 꺼진 경우의 색상 -->
 </resources>
