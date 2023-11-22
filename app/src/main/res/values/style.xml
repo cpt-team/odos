@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define the sky blue color -->
+
+    <!-- Style for the NumberPicker -->
+    <style name="SkyBlueNumberPickerStyle">
+        <!-- Set text color to black -->
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Center align text -->
+        <item name="android:gravity">center</item>
+        <!-- Set the background color -->
+        <item name="android:background">@android:color/white</item>
+        <!-- Set selection divider color to sky blue -->
+        <item name="android:colorControlNormal">@color/skyBlue</item>
+    </style>
+</resources>
