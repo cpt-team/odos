@@ -25,7 +25,10 @@
         <item name="android:textStyle">bold</item>
 
         <item name="android:buttonTint">@color/brown_test</item>
-
     </style>
 
+    <!--이미지뷰 스타일-->
+    <style name="ImageRadius" parent="">
+        <item name="cornerSize">6%</item>
+    </style>
 </resources>

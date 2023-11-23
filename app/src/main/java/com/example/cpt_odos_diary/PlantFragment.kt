@@ -6,36 +6,49 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.databinding.FragmentPlantBinding
 
 class PlantFragment : Fragment() {
     lateinit var binding: FragmentPlantBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlantBinding.inflate(layoutInflater)
 
-        // 화분 꾸미기 버튼
-        val plantButton = binding.plantEdit
+        // 툴바
+        (activity as AppCompatActivity).setSupportActionBar(binding.plantEdit1)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
-
-        // 화분 꾸미기 버튼을 눌렀을 때
-        plantButton.setOnClickListener {
-            // 인텐트로 액티비티 전환
-            val guideIntent = Intent(requireContext(), PlantinfoActivity::class.java)
-            startActivity(guideIntent)
-        }
-
+        // 식물 선택 화면 버튼
         binding.test.setOnClickListener{
             val intent = Intent(requireContext(), PlantChoiceActivity::class.java)
             startActivity(intent)
         }
-
-
         return binding.root
+    }
+
+    // 툴바
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.plant_edit_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    // 툴바 아이콘 눌렀을 때
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val guideIntent = Intent(requireContext(), PlantinfoActivity::class.java)
+        startActivity(guideIntent)
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

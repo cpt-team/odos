@@ -11,6 +11,7 @@
     <color name="grayedOutCardColor">#12CCCCCC</color> <!-- 스위치가 꺼진 경우의 색상 -->
     <color name="cottonBall">#FFF1F4FD</color>
     <color name="brown_test">#3b1509</color>
+    <color name="test">#6a6b83</color>
 
     <!-- 테마 색상 -->
     <color name="colorPrimary">#6aabd2</color>
@@ -19,5 +20,6 @@
     <color name="windowBackground">#FFF1F4FD</color>
     <color name="navigationBarColor">#f2f3f4</color>
     <color name="bottomNavigationStyle">#f9efd3</color>
+
 
 </resources>

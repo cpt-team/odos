@@ -11,10 +11,12 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -32,6 +34,7 @@ import com.example.cpt_odos_diary.retrofit.GetResCallAllDiary
 import com.example.cpt_odos_diary.retrofit.GetResCallAllOdos
 import com.example.cpt_odos_diary.retrofit.OdosApi
 import com.example.cpt_odos_diary.retrofit.RetrofitCreator
+import com.example.cpt_odos_diary.retrofit.RetrofitCreator.odosApi
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -49,10 +52,75 @@ class OdosFragment : Fragment() {
         binding = FragmentOdosBinding.inflate(inflater, container, false)
         val view = inflater.inflate(R.layout.fragment_odos, container, false)
 
+        // 툴바에 추가 메뉴를 넣기 위한 코드.
+        (activity as AppCompatActivity).setSupportActionBar(binding.ivAchievementback)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        setHasOptionsMenu(true)
+
         binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.odos_menu, menu)
+        super.onCreateOptionsMenu(menu, menuInflater)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val odosText = binding.odosTextView
+        val dialog = AlertDialog.Builder(context).create()
+        val edialog : LayoutInflater = LayoutInflater.from(context)
+        val mView : View = edialog.inflate(R.layout.dialog_datepicker,null)
+
+        val year : NumberPicker = mView.findViewById(R.id.yearpicker_datepicker)
+        val month : NumberPicker = mView.findViewById(R.id.monthpicker_datepicker)
+        val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
+        val save : Button = mView.findViewById(R.id.save_button_datepicker)
+
+        //  순환 안되게 막기
+        year.wrapSelectorWheel = false
+        month.wrapSelectorWheel = false
+
+        //  editText 설정 해제
+        year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+
+        //  최소값 설정
+        year.minValue = 2022
+        month.minValue = 1
+        //  최대값 설정
+        year.maxValue = 2024
+        month.maxValue = 12
+
+        year.displayedValues = arrayOf("2022년","2023년","2024년")
+        month.displayedValues = arrayOf("1월","2월","3월","4월","5월","6월","7월","8월","9월","10월",
+            "11월","12월",)
+        //  취소 버튼 클릭 시
+        cancel.setOnClickListener {
+            dialog.dismiss()
+            dialog.cancel()
+        }
+
+        Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
+        //  완료 버튼 클릭 시
+        save.setOnClickListener {
+            odosText.text = "${year.value}년 ${month.value}월"
+
+            dialog.dismiss()
+            dialog.cancel()
+
+            odosList.clear()
+            prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
+
+        }
+
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
+        return super.onOptionsItemSelected(item)
     }
 
 

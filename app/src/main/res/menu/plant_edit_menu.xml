@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/odos_calendar"
-        android:icon="@drawable/ic_calender"
-        android:title="@string/odos_calendar"
+        android:icon="@drawable/edit2"
+        android:title="@string/your_plant"
         app:showAsAction="always"/>
 </menu>
