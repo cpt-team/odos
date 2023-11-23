@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue">
+    android:layout_height="match_parent">
 
     <!-- 사용자의 id를 넣어서 oo의 식물 이런식으로 되도록 만들자 -->
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -31,8 +31,6 @@
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.032" />
-
-
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/test"
@@ -178,7 +176,5 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"/>
     </LinearLayout>
-
-    <include layout="@layout/activity_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

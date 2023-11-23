@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">cpt_odos_diary</string>
+    <string name="plant_name">plant name</string>
+    <string name="second_text">second text</string>
     <string name="title_activity_tst">tst</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -17,6 +19,15 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="login_hint_email">email</string>
+    <string name="login_hint_pw">password</string>
+    <string name="login_welcome_message">어서오세요. 오늘도 당신의 하루를 기록해 보세요.</string>
+    <string name="login">로그인</string>
+    <string name="signup">회원가입</string>
+    <string name="my_achievement">나의 업적</string>
+    <string name="ODOS_List">OdOs LIST</string>
+    <string name="ODOS_sub_title">한 줄 일기</string>
+    <string name="odos_calendar">calendar</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -30,10 +30,12 @@ class MyAdapter(val context: Context, val data: MutableList<Plantpedia>) : Recyc
         binding.plantName.text = plant.plant_name
         binding.growthRate.text = plant.growth_rate
         // 뷰에 이벤트 추가
+        /*
         binding.overflow.setOnClickListener{
             showPopupMenu(binding.overflow)
             Toast.makeText(context, "Menu click", Toast.LENGTH_SHORT).show()
         }
+         */
     }
     fun showPopupMenu(view: View) {
         val popup = PopupMenu(context, view)

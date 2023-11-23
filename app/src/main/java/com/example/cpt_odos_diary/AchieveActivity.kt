@@ -4,6 +4,7 @@ package com.example.cpt_odos_diary
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cpt_odos_diary.App.App
@@ -26,7 +27,7 @@ class AchieveActivity : AppCompatActivity() {
         val adapter = AchievementAdapter(achievementList)
         recyclerView.adapter = adapter
 
-        val achievementBackBtn = findViewById<ImageView>(R.id.iv_achievementback)
+        val achievementBackBtn = findViewById<androidx.appcompat.widget.Toolbar>(R.id.iv_achievementback)
         achievementBackBtn.setOnClickListener {
             finish()
         }

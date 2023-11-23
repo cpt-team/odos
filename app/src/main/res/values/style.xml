@@ -13,4 +13,19 @@
         <!-- Set selection divider color to sky blue -->
         <item name="android:colorControlNormal">@color/skyBlue</item>
     </style>
+
+    <!-- 테마 -->
+    <style name="TestTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:buttonTint">@color/brown_test</item>
+
+    </style>
+
 </resources>

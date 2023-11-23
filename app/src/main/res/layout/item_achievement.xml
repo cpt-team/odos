@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/achievementcardView"
     card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="4dp"
+    card_view:cardElevation="2dp"
     android:layout_margin="8dp">
 
     <LinearLayout
@@ -63,4 +63,5 @@
                 android:layout_marginEnd="8dp"/>
         </LinearLayout>>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

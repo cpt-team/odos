@@ -13,12 +13,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cpt_odos_diary.App.App
 import com.example.cpt_odos_diary.adapter.OdosAdapter
@@ -42,21 +45,16 @@ class OdosFragment : Fragment() {
     private var odosList: MutableList<OdosModel> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentOdosBinding.inflate(inflater, container, false)
         val view = inflater.inflate(R.layout.fragment_odos, container, false)
 
         binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
 
-
-       // return binding.root
         return binding.root
     }
+
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -69,10 +67,9 @@ class OdosFragment : Fragment() {
         //retrofit
         val odosApi: OdosApi = RetrofitCreator.odosApi
 
-
-
         val odosCheck = binding.odosCheck
         val odosText = binding.odosTextView
+
         //  날짜 dialog
         odosCheck.setOnClickListener {
 

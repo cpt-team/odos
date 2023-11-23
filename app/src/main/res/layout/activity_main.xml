@@ -7,13 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <FrameLayout
         android:id="@+id/mainFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="-182dp">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigationView"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
@@ -21,8 +20,9 @@
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navi_menu"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navi_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
