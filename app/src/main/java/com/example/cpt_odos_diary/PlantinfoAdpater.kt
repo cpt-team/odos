@@ -35,6 +35,7 @@ class PlantinfoAdapter(private val skinList: List<PlantinfoModel>) : RecyclerVie
         holder.coverImageView.setImageResource(currentSkin.coverResId)
         holder.titleTextView.text = currentSkin.title
         holder.descTextView.text = currentSkin.desc
+        holder.plantswitch.isChecked = false
 
 
         // 스위치에 대한 리스너 설정

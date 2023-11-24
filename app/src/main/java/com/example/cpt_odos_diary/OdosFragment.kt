@@ -58,6 +58,7 @@ class OdosFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         setHasOptionsMenu(true)
 
+
         binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
 
@@ -171,6 +172,8 @@ class OdosFragment : Fragment() {
         val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
         val save : Button = mView.findViewById(R.id.save_button_datepicker)
 
+
+        odosText.text = "ODOS LIST"
         //  순환 안되게 막기
         year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
@@ -198,7 +201,7 @@ class OdosFragment : Fragment() {
         Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
         //  완료 버튼 클릭 시
         save.setOnClickListener {
-            odosText.text = "${year.value}년 ${month.value}월"
+            odosText.text = "${year.value}년 ${month.value}월 ODOS LIST"
             dialog.dismiss()
             dialog.cancel()
             odosList.clear()
@@ -221,14 +224,15 @@ class OdosFragment : Fragment() {
         val odosApi: OdosApi = RetrofitCreator.odosApi
         val year : NumberPicker = mView.findViewById(R.id.yearpicker_datepicker)
         val month : NumberPicker = mView.findViewById(R.id.monthpicker_datepicker)
-        val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
-        val save : Button = mView.findViewById(R.id.save_button_datepicker)
-
-        odosText.text = "${year.value}년 ${month.value}월"
+        val onlyDate: LocalDate = LocalDate.now()
+        val cYear = onlyDate.year // 2023
+        val cMonth = onlyDate.monthValue // 11
+        odosText.text = "${cYear}년 ${cMonth}월 ODOS LIST"
         dialog.dismiss()
         dialog.cancel()
+
         odosList.clear()
-        prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
+        prepare(binding, App.token_prefs.uid!!, odosApi, cYear, cMonth)
     }
 
     @SuppressLint("SetTextI18n")

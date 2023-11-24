@@ -65,6 +65,7 @@ class SigninActivity : AppCompatActivity() {
                      Log.d(TAG, "성공 uid : ${App.token_prefs.uid}")// sharedPreference에 데이터 저장 후 호출
                      Toast.makeText( applicationContext,"로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                      if(!App.token_prefs.uid.isNullOrBlank()) {
+
                          finish()
                      }
 

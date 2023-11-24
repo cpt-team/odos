@@ -50,6 +50,7 @@ class PlantFragment : Fragment() {
     }
 
     // 툴바 아이콘 눌렀을 때
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val guideIntent = Intent(requireContext(), PlantinfoActivity::class.java)
         startActivity(guideIntent)
@@ -65,7 +66,7 @@ class PlantFragment : Fragment() {
         val pod = binding.pod
         val plantName = binding.plantName
         val floriographyDesc = binding.floriographyDesc
-        val plantWater = binding.plantWater
+        val plantWater = binding.waterNum
 
 
         Log.d(TAG, "plant Data - name: ${App.token_prefs.plantName}")
