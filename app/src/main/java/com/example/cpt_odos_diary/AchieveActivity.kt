@@ -1,20 +1,32 @@
 package com.example.cpt_odos_diary
 
-
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cpt_odos_diary.App.App
 
-
 class AchieveActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achieve)
 
+        val toolbar : androidx.appcompat.widget.Toolbar = findViewById(R.id.achievement_toolbar)
+
+        // 툴바에 추가 메뉴를 넣기 위한 코드.
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -27,15 +39,14 @@ class AchieveActivity : AppCompatActivity() {
         val adapter = AchievementAdapter(achievementList)
         recyclerView.adapter = adapter
 
-        val achievementBackBtn = findViewById<androidx.appcompat.widget.Toolbar>(R.id.iv_achievementback)
+        /*
+        val achievementBackBtn = findViewById<androidx.appcompat.widget.Toolbar>(R.id.achievement_toolbar)
         achievementBackBtn.setOnClickListener {
             finish()
         }
+         */
     }
-
 }
-
-
     private fun generateAchievementList(): List<Achievement> {
         val diaryCnt = App.token_prefs.diaryCnt
         val odosCnt = App.token_prefs.odosCnt
@@ -94,17 +105,11 @@ class AchieveActivity : AppCompatActivity() {
                 achievementList.add(Achievement("기록 첫 기념일!!", "총 100일 작성", R.drawable.ic_achieve,false,R.drawable.yellowpod))
             }
         }
-
-
         achievementList.add(Achievement("식물은 어떻게 성장하나요?", "식물 다음 단계로 성장시켜보기", R.drawable.ic_achieve,false,R.drawable.snow5))
-
-
         achievementList.add(Achievement("식물에 스킨 적용해보기", "식물의 스킨 적용해보기", R.drawable.ic_achieve,false,R.drawable.snow7))
         achievementList.add(Achievement("행복한 내 식물", "한 식물을 다 키워보기", R.drawable.ic_achieve,false,R.drawable.greenpod))
         achievementList.add(Achievement("두 번째 선택", "두 번째 식물을 키워보기 ", R.drawable.ic_achieve,false,R.drawable.field2))
         achievementList.add(Achievement("명언 마스터", "모든 명언 확인하기", R.drawable.ic_achieve,false,R.drawable.snow8))
-
-
         return achievementList
     }
 
