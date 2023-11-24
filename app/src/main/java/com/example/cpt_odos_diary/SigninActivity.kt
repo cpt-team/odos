@@ -29,22 +29,23 @@ class SigninActivity : AppCompatActivity() {
         // retrofit 구현
         val btnEvent = binding.subBnt
         val signUpBtn = binding.signUpBtn
-        // LoginApi의 내용을 포함한 retrofit 객체를 만드는데
-        val signApi : LoginApi = RetrofitCreator.signApi
+
+
        btnEvent.setOnClickListener{
         val email : String = binding.ETemail.text.toString()
         val pw : String = binding.ETpw.text.toString()
         val requestData = PostReqSignIn(email,pw)
+           val signApi : LoginApi = RetrofitCreator.signApi
            // 데이터를 묶어서 반환값으로 res이미 받음. 어떻게 처리할건데?
         val callSignIn = signApi.postSignIn(requestData)
         resultPostSignIn(callSignIn);
-        App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG,it1) }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        //App.token_prefs.accessToken?.let { it1 -> Log.d(ContentValues.TAG,it1)
+
     }
     signUpBtn.setOnClickListener{
+
         val intent = Intent(this, SignupActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         startActivity(intent)
     }
 }
@@ -63,6 +64,10 @@ class SigninActivity : AppCompatActivity() {
                      App.token_prefs.uid = response.body()?.data?.get(0)?.uid
                      Log.d(TAG, "성공 uid : ${App.token_prefs.uid}")// sharedPreference에 데이터 저장 후 호출
                      Toast.makeText( applicationContext,"로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                     if(!App.token_prefs.uid.isNullOrBlank()) {
+                         finish()
+                     }
+
                  }
                  else {
                      Log.d(ContentValues.TAG, "signIn Post 실패 : ${response.body()}")

@@ -26,20 +26,26 @@ class App: Application() {
         token_prefs.odosYear = 1
         token_prefs.odosMonth = 1
 
+        token_prefs.backSkin = "basicback"
+        token_prefs.podSkin = "basicpod"
+
 
         // 앱실행시 token 지우기. signOut만들면 그 때 이거 쓰자
-        token_prefs.editor.remove("accessToken")
+        token_prefs.editor.remove("uid")
+        token_prefs.editor.commit()
+        token_prefs.editor.remove("dayList")
         token_prefs.editor.commit()
 
-        if(token_prefs.accessToken.isNullOrBlank()){
-            val intent = Intent(this, SigninActivity::class.java)
+        if(!token_prefs.uid.isNullOrBlank()){
+            val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
         else{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, SigninActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+
         }
 
     }

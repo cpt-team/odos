@@ -61,9 +61,6 @@ class PlantFragment : Fragment() {
         val floriographyDesc = binding.floriographyDesc
 
 
-        App.token_prefs.backSkin = "snow6"
-        App.token_prefs.podSkin = "smilepod"
-
         Log.d(TAG,"plant Data - name: ${App.token_prefs.plantName}")
         Log.d(TAG,"plant Data - desc: ${App.token_prefs.plantDesc}")
         Log.d(TAG,"plant Data - flo: ${App.token_prefs.floriography}")
