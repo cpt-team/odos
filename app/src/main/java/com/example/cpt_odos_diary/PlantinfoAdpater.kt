@@ -8,14 +8,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cpt_odos_diary.App.App
 
-class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
-    RecyclerView.Adapter<PlantinfoAdpater.PlantinfoViewHolder>(){
 
+class PlantinfoAdapter(private val skinList: List<PlantinfoModel>) : RecyclerView.Adapter<PlantinfoAdapter.PlantinfoViewHolder>() {
 
     class PlantinfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView.findViewById(R.id.plantinfocardView)
@@ -26,33 +25,42 @@ class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         val plantswitch: Switch = itemView.findViewById(R.id.plantinfoSwitch)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantinfoViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_plantinfo, parent, false)
         return PlantinfoViewHolder(itemView)
     }
-
     override fun onBindViewHolder(holder: PlantinfoViewHolder, position: Int) {
-        val currentSkin = SkinList[position]
+        val currentSkin = skinList[position]
         holder.coverImageView.setImageResource(currentSkin.coverResId)
         holder.titleTextView.text = currentSkin.title
         holder.descTextView.text = currentSkin.desc
 
 
         // 스위치에 대한 리스너 설정
-        updateItemView(holder, holder.plantswitch.isChecked)
+        updateItemView(holder, holder.plantswitch.isChecked,position)
         holder.plantswitch.setOnCheckedChangeListener { _, isChecked ->
-            updateItemView(holder, isChecked)
+            updateItemView(holder, isChecked,position)
         }
     }
 
-    private fun updateItemView(holder: PlantinfoViewHolder, isChecked: Boolean) {
+    private fun updateItemView(holder: PlantinfoViewHolder, isChecked: Boolean,position: Int) {
         if (isChecked) {
             // 스위치가 켜진 경우
+            val currentSkin = skinList[position]
+
+            if(currentSkin.type == "pod"){
+                App.token_prefs.podSkin = currentSkin.title
+            }
+            else if(currentSkin.type == "back"){
+                App.token_prefs.backSkin = currentSkin.title
+            }
+
             holder.cardView.setCardBackgroundColor(
                 ContextCompat.getColor(holder.itemView.context, R.color.originalCardColor)
+
             )
+
         } else {
             // 스위치가 꺼진 경우
             holder.cardView.setCardBackgroundColor(
@@ -61,6 +69,5 @@ class PlantinfoAdpater (private val SkinList: List<PlantinfoModel>) :
         }
     }
 
-    override fun getItemCount() =SkinList.size
-
+    override fun getItemCount() =skinList.size
 }
