@@ -18,14 +18,15 @@
             android:id="@+id/plant_image"
             android:layout_width="match_parent"
             android:layout_height="108dp"
-            android:background="?attr/colorPrimaryDark"
-            android:scaleType="centerCrop" />
+            android:background="#D2F3F8"
+            android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="8dp">
+
 
             <TextView
                 android:id="@+id/plant_name"
