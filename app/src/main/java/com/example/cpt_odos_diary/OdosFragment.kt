@@ -20,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -63,11 +64,14 @@ class OdosFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.odos_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 
+    @SuppressLint("SetTextI18n")
+    @Deprecated("Deprecated in Java")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val odosText = binding.odosTextView
@@ -79,6 +83,8 @@ class OdosFragment : Fragment() {
         val month : NumberPicker = mView.findViewById(R.id.monthpicker_datepicker)
         val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
         val save : Button = mView.findViewById(R.id.save_button_datepicker)
+
+        val refresh : ImageButton = binding.refreshCheck
 
         //  순환 안되게 막기
         year.wrapSelectorWheel = false
@@ -120,6 +126,17 @@ class OdosFragment : Fragment() {
         dialog.setView(mView)
         dialog.create()
         dialog.show()
+
+        refresh.setOnClickListener {
+            odosList.clear()
+            Log.d(TAG,"리프레시 동작중 ${year.value}, ${month.value}")
+            prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
+        }
+
+
+
+
+
         return super.onOptionsItemSelected(item)
     }
 
