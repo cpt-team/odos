@@ -123,7 +123,6 @@ class OdosFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
@@ -137,69 +136,7 @@ class OdosFragment : Fragment() {
 
         val odosCheck = binding.odosCheck
         val odosText = binding.odosTextView
-
-        //  날짜 dialog
-        odosCheck.setOnClickListener {
-
-            val dialog = AlertDialog.Builder(context).create()
-            val edialog : LayoutInflater = LayoutInflater.from(context)
-            val mView : View = edialog.inflate(R.layout.dialog_datepicker,null)
-
-            val year : NumberPicker = mView.findViewById(R.id.yearpicker_datepicker)
-            val month : NumberPicker = mView.findViewById(R.id.monthpicker_datepicker)
-            val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
-            val save : Button = mView.findViewById(R.id.save_button_datepicker)
-
-            //  순환 안되게 막기
-            year.wrapSelectorWheel = false
-            month.wrapSelectorWheel = false
-
-            //  editText 설정 해제
-            year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-            month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-
-            //  최소값 설정
-            year.minValue = 2022
-            month.minValue = 1
-            //  최대값 설정
-            year.maxValue = 2024
-            month.maxValue = 12
-
-            year.displayedValues = arrayOf("2022년","2023년","2024년")
-            month.displayedValues = arrayOf("1월","2월","3월","4월","5월","6월","7월","8월","9월","10월",
-                "11월","12월",)
-            //  취소 버튼 클릭 시
-            cancel.setOnClickListener {
-                dialog.dismiss()
-                dialog.cancel()
-            }
-
-
-
-            Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
-            //  완료 버튼 클릭 시
-            save.setOnClickListener {
-                odosText.text = "${year.value}년 ${month.value}월"
-
-                dialog.dismiss()
-                dialog.cancel()
-
-                odosList.clear()
-                prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
-
-
-            }
-
-            dialog.setView(mView)
-            dialog.create()
-            dialog.show()
-
-
-
-        }
-
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -235,8 +172,6 @@ class OdosFragment : Fragment() {
                     val eList = mutableListOf<String>()
                     val wList = mutableListOf<String>()
 
-
-
                     Log.d(TAG,"cntOdos: ${App.token_prefs.odosCnt}")
                     for (i in it.indices) {
                         eList.add(it[i].emotion)
@@ -264,7 +199,6 @@ class OdosFragment : Fragment() {
                             binding.odosPlus.setOnClickListener {
                                 Toast.makeText(context, "이미 odos를 작성하셨습니다!!", Toast.LENGTH_SHORT)
                                     .show()
-
                             }
                             break@loop
                         }
@@ -280,13 +214,8 @@ class OdosFragment : Fragment() {
                                 startActivity(odosPlusIntent)
                             }
                         }
-
-
                     }
                     binding.odosRecyclerView.adapter?.notifyDataSetChanged()
-
-
-
 
                 } else {
                     Log.d(ContentValues.TAG, "/odos get 실패 : ${response.body()}")
@@ -298,11 +227,9 @@ class OdosFragment : Fragment() {
 
                 }
             }
-
             override fun onFailure(call: Call<GetResCallAllOdos>, t: Throwable) {
                 Log.d(ContentValues.TAG, "/odos get 통신 에러: $t")
             }
-
         })
     }
 }
