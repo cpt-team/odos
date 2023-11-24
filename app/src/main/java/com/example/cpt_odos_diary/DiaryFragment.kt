@@ -35,7 +35,6 @@ import retrofit2.Response
 import java.time.LocalDate
 import java.util.Locale
 
-
 class DiaryFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -53,9 +52,6 @@ class DiaryFragment : Fragment() {
         val uid: String? = App.token_prefs.uid
 
         Log.d(TAG, "uid는 $uid")
-
-
-
 
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
         val onlyDate: LocalDate = LocalDate.now()
@@ -95,7 +91,6 @@ class DiaryFragment : Fragment() {
 
         Log.d(TAG,"데이터는 ${App.token_prefs.dayList}")
 
-
             calendarView?.setOnDateChangeListener { view, year, month, dayOfMonth ->
                 Log.d(TAG,"데이터 month 불러와집니다${dayOfMonth}")
                 Log.d(TAG,"데이터 밖 불러와집니다${App.token_prefs.dayList!!.contains(dayOfMonth.toString())}")
@@ -104,15 +99,10 @@ class DiaryFragment : Fragment() {
                 if(App.token_prefs.dayList!!.contains(dayOfMonth.toString())){
                     Log.d(TAG,"데이터 잘 불러와집니다${App.token_prefs.dayList!!.contains(dayOfMonth.toString())}")
 
-
                     val selectedDate = Calendar.getInstance()
                     selectedDate.set(year, month, dayOfMonth)
 
-
-
                     val intent = Intent(activity, DiaryGetActivity::class.java)
-
-
                     // 날짜 정보를 Intent에 추가
                     intent.putExtra("selectedDate", selectedDate.timeInMillis)
                     startActivity(intent)
@@ -144,24 +134,16 @@ class DiaryFragment : Fragment() {
                 if (dateCheck != null) {
                     dateCheck.text = App.token_prefs.dayList.toString()
                 }
-
                 calendarView.setOnClickListener(null)
             }
-
-
-
-
 
             if (!App.token_prefs.dayList?.get(0).isNullOrBlank()) {
                 // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
                 Log.d(TAG, "날짜는??? $cYear, $cMonth")
                 Log.d(TAG, "데이터는!!! ${App.token_prefs.dayList}")
 
-
                 // 날짜가 눌렸을 때 반응..
                 calendarView?.setOnDateChangeListener { view, year, month, dayOfMonth ->
-
-
                     Log.d(TAG, "date: $onlyDate")
                     // 클릭한 날짜 정보를 가져오기
                     val selectedDate = Calendar.getInstance()
@@ -170,7 +152,6 @@ class DiaryFragment : Fragment() {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     dateFormat.format(selectedDate.timeInMillis)
 
-
                     val formattedDate = dateFormat.format(selectedDate.timeInMillis)
 
                     Log.d(TAG,"비교: ${formattedDate},${onlyDate}, ${formattedDate > onlyDate.toString()}")
@@ -178,7 +159,6 @@ class DiaryFragment : Fragment() {
                         Toast.makeText(context, "현재 날짜보다 앞선 날짜입니다!", Toast.LENGTH_SHORT).show()
                         return@setOnDateChangeListener
                     }
-
 
                     Log.d(TAG, "data: first diary작성")
                     // DiaryEditActivity로 이동하는 Intent를 생성
@@ -191,9 +171,6 @@ class DiaryFragment : Fragment() {
                     calendarView.setOnClickListener(null)
                 }
             }
-
-
-
         return view
     }
 
@@ -212,9 +189,6 @@ class DiaryFragment : Fragment() {
         val uid: String? = App.token_prefs.uid
 
         Log.d(TAG, "uid는 $uid")
-
-
-
 
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
         val onlyDate: LocalDate = LocalDate.now()
@@ -240,10 +214,6 @@ class DiaryFragment : Fragment() {
                     if (dateCheck != null) {
                         dateCheck.text = "비어있습니다"
                     }
-
-
-
-
                     //데이터 호출
                     if (uid != null) {
                         retrofitGetAllDiary(
@@ -260,34 +230,22 @@ class DiaryFragment : Fragment() {
                                 val date1 = it[i].createAt.split(" ")[0]
                                 monthDate.add(date1.split("-")[2])
                             }
-
-
                             App.token_prefs.dayList = monthDate
                             if (dateCheck != null) {
                                 dateCheck.text = App.token_prefs.dayList.toString()
-
-
                                 Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
-
                                 Log.d(TAG, "monthDate: $monthDate")
-
-
                             }
-
-
                             val selectedDate = Calendar.getInstance()
                             calendarView?.setOnDateChangeListener { view, year, month, dayOfMonth ->
                                 if (App.token_prefs.dayList!!.contains(dayOfMonth.toString())) {
 
                                     selectedDate.set(year, month, dayOfMonth)
 
-
                                     val intent = Intent(activity, DiaryGetActivity::class.java)
                                     // 날짜 정보를 Intent에 추가
                                     intent.putExtra("selectedDate", selectedDate.timeInMillis)
                                     startActivity(intent)
-
-
                                 } else {
 
                                     selectedDate.set(year, month, dayOfMonth)
@@ -302,24 +260,17 @@ class DiaryFragment : Fragment() {
                                         ).show()
                                         return@setOnDateChangeListener
                                     }
-
-
                                     val intent = Intent(activity, DiaryEditActivity::class.java)
 
                                     // 날짜 정보를 Intent에 추가
                                     intent.putExtra("selectedDate", selectedDate.timeInMillis)
                                     startActivity(intent)
-
-
                                 }
-
                             }
-
                         }
                     }else {
                         Log.d(TAG, "uid가 존재하지 않습니다")
                     }
-
                 }
             }
             false
@@ -328,8 +279,6 @@ class DiaryFragment : Fragment() {
         afterBtn?.setOnTouchListener { _, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
-
-
                     Log.d(TAG,"데이터는 ${App.token_prefs.dayList}")
 
                     if (App.token_prefs.odosMonth == 12) {
@@ -346,8 +295,6 @@ class DiaryFragment : Fragment() {
                         dateCheck.text = "비어있습니다"
                     }
 
-
-
                     //데이터 호출
                     if (uid != null) {
                         retrofitGetAllDiary(diaryApi, uid, App.token_prefs.odosYear.toString(), App.token_prefs.odosMonth.toString()){
@@ -363,19 +310,9 @@ class DiaryFragment : Fragment() {
                                 if (dateCheck != null) {
                                     dateCheck.text = App.token_prefs.dayList.toString()
                                 }
-
-
-
-
-
-
                             Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
-
                             Log.d(TAG, "monthDate: $monthDate")
-
-
                         }
-
                         val selectedDate = Calendar.getInstance()
                         calendarView?.setOnDateChangeListener { view, year, month, dayOfMonth ->
                             if(App.token_prefs.dayList!!.contains(dayOfMonth.toString())){
