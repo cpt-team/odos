@@ -13,19 +13,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.w3c.dom.Text
 
-
 class HomeFragment : Fragment() {
-
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
         val achieveButton = view.findViewById<ImageView>(R.id.achievementButton)
         val settingButton = view.findViewById<ImageView>(R.id.settingButton)
         // "업적" 버튼을 클릭했을 때 AchieveActivity로 이동
@@ -33,27 +28,19 @@ class HomeFragment : Fragment() {
             val achieveIntent = Intent(requireContext(), AchieveActivity::class.java)
             startActivity(achieveIntent)
         }
-
         // "설정" 버튼을 클릭했을 때 SettingActivity로 이동
         settingButton.setOnClickListener {
             val settingIntent = Intent(requireContext(), SettingActivity::class.java)
             startActivity(settingIntent)
         }
-
         return view
     }
-
     override fun onResume() {
         super.onResume()
         val oneSentence = view?.findViewById<TextView>(R.id.oneSentence)
         oneSentence?.text = Setences()
-
-
     }
-
-
 }
-
 
 fun Setences(): String {
     val randNum = (Math.random()*10).toInt()
@@ -70,8 +57,5 @@ fun Setences(): String {
         "시간은 인간이 쓸 수 있는 것 들 중에서 가장 소중한 것이다.",
         "삶이 당신에게 백 가지의 울어야 하는 이유를 던질 때, 천가지의 웃을 수 있는 이유를 보여줘라."
     )
-
-
     return sentences[randNum]
-
 }
