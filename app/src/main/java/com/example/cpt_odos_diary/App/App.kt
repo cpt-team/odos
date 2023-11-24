@@ -14,8 +14,6 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         token_prefs = TokenSharedPreferences(applicationContext)
-        token_prefs.diaryCnt = "0"
-        token_prefs.odosCnt = "0"
         token_prefs.emotionList = listOf()
         token_prefs.whetherList = listOf()
         token_prefs.plantName = ""
@@ -25,6 +23,9 @@ class App: Application() {
         token_prefs.backSkin = "0"
         token_prefs.odosYear = 1
         token_prefs.odosMonth = 1
+        token_prefs.checkToggle = ""
+        token_prefs.diaryCnt = 0
+        token_prefs.odosnt = 0
 
         token_prefs.backSkin = "basicback"
         token_prefs.podSkin = "basicpod"

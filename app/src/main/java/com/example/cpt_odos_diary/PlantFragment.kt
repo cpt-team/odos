@@ -1,5 +1,6 @@
 package com.example.cpt_odos_diary
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -23,7 +24,11 @@ class PlantFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentPlantBinding.inflate(layoutInflater)
 
         // 툴바
@@ -31,7 +36,7 @@ class PlantFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // 식물 선택 화면 버튼
-        binding.test.setOnClickListener{
+        binding.test.setOnClickListener {
             val intent = Intent(requireContext(), PlantChoiceActivity::class.java)
             startActivity(intent)
         }
@@ -51,6 +56,7 @@ class PlantFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
 
@@ -59,28 +65,29 @@ class PlantFragment : Fragment() {
         val pod = binding.pod
         val plantName = binding.plantName
         val floriographyDesc = binding.floriographyDesc
+        val plantWater = binding.plantWater
 
 
-        Log.d(TAG,"plant Data - name: ${App.token_prefs.plantName}")
-        Log.d(TAG,"plant Data - desc: ${App.token_prefs.plantDesc}")
-        Log.d(TAG,"plant Data - flo: ${App.token_prefs.floriography}")
-        Log.d(TAG,"plant Data - pod: ${App.token_prefs.podSkin}")
-        Log.d(TAG,"plant Data - back: ${App.token_prefs.backSkin}")
-        Log.d(TAG,"plant Data - level: ${App.token_prefs.plantLevel}")
+        Log.d(TAG, "plant Data - name: ${App.token_prefs.plantName}")
+        Log.d(TAG, "plant Data - desc: ${App.token_prefs.plantDesc}")
+        Log.d(TAG, "plant Data - flo: ${App.token_prefs.floriography}")
+        Log.d(TAG, "plant Data - pod: ${App.token_prefs.podSkin}")
+        Log.d(TAG, "plant Data - back: ${App.token_prefs.backSkin}")
+        Log.d(TAG, "plant Data - level: ${App.token_prefs.plantLevel}")
 
-        when(App.token_prefs.plantName){
-            "안개꽃" -> plant.setImageResource(R.drawable.gypsophila_purple1)
+        when (App.token_prefs.plantName) {
+            "안개꽃" -> plant.setImageResource(R.drawable.gypsophila_purple2)
             "튤립" -> plant.setImageResource(R.drawable.tulip2)
-            "장미" -> plant.setImageResource(R.drawable.chrysanthemum1)
+            "장미" -> plant.setImageResource(R.drawable.chrysanthemum2)
         }
-        when(App.token_prefs.podSkin){
+        when (App.token_prefs.podSkin) {
             "basicpod" -> pod.setImageResource(R.drawable.basicpod)
             "greenpod" -> pod.setImageResource(R.drawable.greenpod)
             "pinkpod" -> pod.setImageResource(R.drawable.pinkpod)
             "smilepod" -> pod.setImageResource(R.drawable.smilepod)
             "yellowpod" -> pod.setImageResource(R.drawable.yellowpod)
         }
-        when(App.token_prefs.backSkin) {
+        when (App.token_prefs.backSkin) {
             "basicpod" -> background.setImageResource(R.drawable.basicback)
             "desert1" -> background.setImageResource(R.drawable.desert1)
             "desert2" -> background.setImageResource(R.drawable.desert2)
@@ -100,8 +107,52 @@ class PlantFragment : Fragment() {
 
         }
 
-        plantName.text = App.token_prefs.plantName
-        floriographyDesc.text = App.token_prefs.floriography
+        val diaryCnt = App.token_prefs.diaryCnt
+        val odosCnt = App.token_prefs.odosnt
 
+        if((diaryCnt!! + odosCnt!!) == 4){
+            App.token_prefs.plantLevel = 2
+        }
+
+        if((diaryCnt + odosCnt) == 5){
+            App.token_prefs.plantLevel = 3
+        }
+
+        if((diaryCnt + odosCnt) == 6){
+            App.token_prefs.plantLevel = 4
+        }
+
+
+        if (plantName.text == "안개꽃") {
+            when (App.token_prefs.plantLevel) {
+                2 -> plant.setImageResource(R.drawable.gypsophila_purple3)
+                3 -> plant.setImageResource(R.drawable.gypsophila_purple4)
+                4 -> plant.setImageResource(R.drawable.gypsophila_purple5)
+
+            }
+            if (plantName.text == "튤립") {
+                when (App.token_prefs.plantLevel) {
+                    2 -> plant.setImageResource(R.drawable.tulip3)
+                    3 -> plant.setImageResource(R.drawable.tulip4)
+                    4 -> plant.setImageResource(R.drawable.tulip5)
+
+                }
+            }
+            if (plantName.text == "국화") {
+                when (App.token_prefs.plantLevel) {
+                    2 -> plant.setImageResource(R.drawable.chrysanthemum3)
+                    3 -> plant.setImageResource(R.drawable.chrysanthemum4)
+                    4 -> plant.setImageResource(R.drawable.chrysanthemum5)
+
+                }
+            }
+
+
+
+            plantName.text = App.token_prefs.plantName
+            plantWater.text ="${diaryCnt + odosCnt}회"
+            floriographyDesc.text = App.token_prefs.floriography
+
+        }
     }
 }

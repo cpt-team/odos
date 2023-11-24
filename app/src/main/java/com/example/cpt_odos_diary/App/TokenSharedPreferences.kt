@@ -21,12 +21,17 @@ class TokenSharedPreferences(context: Context) {
     private val key_dayList = "dayList"
     private val key_odosYear = "odosYear"
     private val key_odosMonth = "odosMonth"
+    private val key_checkToggle = "checkToggle"
 
 
     private val prefs: SharedPreferences = context.getSharedPreferences(prefsFilename, 0)
     val editor : SharedPreferences.Editor = prefs.edit()
 
 
+
+    var checkToggle : String?
+        get() = prefs.getString(key_checkToggle, "")
+        set(value) = prefs.edit().putString(key_checkToggle, value).apply()
     var odosYear : Int?
         get() = prefs.getInt(key_odosYear, 1)
         set(value) = prefs.edit().putInt(key_odosYear, value?:1).apply()
@@ -88,12 +93,31 @@ class TokenSharedPreferences(context: Context) {
         get() = prefs.getInt(key_plantLevel, 1)
         set(value) = prefs.edit().putInt(key_plantLevel, value?:1).apply()
 
-    var odosCnt : String?
-        get() = prefs.getString(key_odosCnt, "")
-        set(value) = prefs.edit().putString(key_odosCnt, value).apply()
-    var diaryCnt : String?
-        get() = prefs.getString(key_diaryCnt, "")
-        set(value) = prefs.edit().putString(key_diaryCnt, value).apply()
+    var odosnt: Int?
+        get() {
+            val storedValue = prefs.getString(key_odosCnt, null)
+            return try {
+                storedValue?.toInt()
+            } catch (e: NumberFormatException) {
+                null // or handle the conversion failure in a way that makes sense for your app
+            }
+        }
+        set(value) {
+            prefs.edit().putString(key_odosCnt, value?.toString()).apply()
+        }
+
+    var diaryCnt: Int?
+        get() {
+            val storedValue = prefs.getString(key_diaryCnt, null)
+            return try {
+                storedValue?.toInt()
+            } catch (e: NumberFormatException) {
+                null // or handle the conversion failure in a way that makes sense for your app
+            }
+        }
+        set(value) {
+            prefs.edit().putString(key_diaryCnt, value?.toString()).apply()
+        }
 
     var accessToken: String?
         get() = prefs.getString(key_accessToken, "")
@@ -111,3 +135,4 @@ private fun listToString(list: List<String>): String {
 private fun stringToList(str: String): List<String> {
     return str.split(",").map { it.trim() }
 }
+

@@ -74,7 +74,7 @@ class DiaryFragment : Fragment() {
             // 서버에서 받은 데이터를 it 변수에 리스트로 담고 있는 상태.
             {
 
-                App.token_prefs.diaryCnt = it.size.toString()
+                //App.token_prefs.diaryCnt = it.size.toString()
                 val monthDate = mutableListOf<String>()
 
                 for (i in it.indices) {
@@ -84,7 +84,7 @@ class DiaryFragment : Fragment() {
 
                 App.token_prefs.dayList = monthDate
 
-                Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
+                //Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
                 Log.d(TAG, "monthDate: $monthDate")
                 val dateCheck = view?.findViewById<TextView>(R.id.monthDate)
@@ -202,6 +202,11 @@ class DiaryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        Log.d(TAG,"diaryCnt: ${App.token_prefs.diaryCnt}")
+
+        Log.d(TAG,"odosCnt: ${App.token_prefs.odosnt}")
+
+
         val calendarView = view?.findViewById<CalendarView>(R.id.calendarview)
         val previousBtn = view?.findViewById<TextView>(R.id.previousMonthBtn)
         val afterBtn = view?.findViewById<TextView>(R.id.afterMonthBtn)
@@ -253,7 +258,7 @@ class DiaryFragment : Fragment() {
                             App.token_prefs.odosMonth.toString()
                         ) {
 
-                            App.token_prefs.diaryCnt = it.size.toString()
+                            //App.token_prefs.diaryCnt = it.size.toString()
                             val monthDate = mutableListOf<String>()
 
                             for (i in it.indices) {
@@ -267,7 +272,7 @@ class DiaryFragment : Fragment() {
                                 dateCheck.text = App.token_prefs.dayList.toString()
 
 
-                                Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
+                                //Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
                                 Log.d(TAG, "monthDate: $monthDate")
 
@@ -351,7 +356,7 @@ class DiaryFragment : Fragment() {
                     //데이터 호출
                     if (uid != null) {
                         retrofitGetAllDiary(diaryApi, uid, App.token_prefs.odosYear.toString(), App.token_prefs.odosMonth.toString()){
-                            App.token_prefs.diaryCnt = it.size.toString()
+                           // App.token_prefs.diaryCnt = it.size.toString()
                             val monthDate = mutableListOf<String>()
 
                             for (i in it.indices) {
@@ -369,7 +374,7 @@ class DiaryFragment : Fragment() {
 
 
 
-                            Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
+                            //Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
                             Log.d(TAG, "monthDate: $monthDate")
 

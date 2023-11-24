@@ -47,6 +47,7 @@ class PlantinfoAdapter(private val skinList: List<PlantinfoModel>) : RecyclerVie
     private fun updateItemView(holder: PlantinfoViewHolder, isChecked: Boolean,position: Int) {
         if (isChecked) {
             // 스위치가 켜진 경우
+            App.token_prefs.checkToggle="1"
             val currentSkin = skinList[position]
 
             if(currentSkin.type == "pod"){

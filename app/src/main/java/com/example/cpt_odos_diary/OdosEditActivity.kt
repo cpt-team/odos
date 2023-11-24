@@ -106,8 +106,12 @@ class OdosEditActivity : AppCompatActivity() {
             ) {
                 if (response.body()?.success == true) {
                     Log.d(ContentValues.TAG, "/odos post 성공 : ${response.body()}")
-                    Log.d(ContentValues.TAG, "/odos data: ${response.body()?.message}")
+                    Log.d(ContentValues.TAG, "/odos data: ${response.body()?.data?.get(0)?.oid}")
                     Toast.makeText(applicationContext, response.body()?.message, Toast.LENGTH_SHORT).show()
+
+                    App.token_prefs.odosnt = App.token_prefs.odosnt?.plus(1)
+                    Log.d(ContentValues.TAG,"odosList처음: ${App.token_prefs.odosnt}")
+
                     finish()
 
                 } else {

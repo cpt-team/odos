@@ -148,6 +148,7 @@
             android:paddingBottom="20dp"
             android:paddingTop="20dp"/>
         <TextView
+            android:id="@+id/plantWater"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start"

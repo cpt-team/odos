@@ -128,6 +128,9 @@ class DiaryEditActivity : AppCompatActivity() {
                     Log.d(ContentValues.TAG, "/diary post 성공 : ${response.body()}")
                     Log.d(TAG,"/diary data: ${response.body()?.data}")
                     response.body()?.message?.let { onSuccess(it) }
+                    App.token_prefs.diaryCnt = App.token_prefs.diaryCnt?.plus(1)
+                    Log.d(TAG,"diaryList처음: ${App.token_prefs.diaryCnt}")
+
                 }
                 else {
                     Log.d(ContentValues.TAG, "/diary post 실패 : ${response.body()}")
