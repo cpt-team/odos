@@ -29,6 +29,9 @@
     <string name="ODOS_sub_title">한 줄 일기</string>
     <string name="odos_calendar">calendar</string>
     <string name="your_plant">당신의 식물</string>
+    <string name="odos_refresh">refresh</string>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

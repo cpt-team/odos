@@ -258,7 +258,7 @@ class DiaryFragment : Fragment() {
                             App.token_prefs.odosMonth.toString()
                         ) {
 
-                            //App.token_prefs.diaryCnt = it.size.toString()
+
                             val monthDate = mutableListOf<String>()
 
                             for (i in it.indices) {
@@ -270,9 +270,6 @@ class DiaryFragment : Fragment() {
                             App.token_prefs.dayList = monthDate
                             if (dateCheck != null) {
                                 dateCheck.text = App.token_prefs.dayList.toString()
-
-
-                                //Log.d(TAG, "cntDiary: ${App.token_prefs.diaryCnt}")
 
                                 Log.d(TAG, "monthDate: $monthDate")
 

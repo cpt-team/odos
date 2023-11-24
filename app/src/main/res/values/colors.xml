@@ -8,7 +8,7 @@
     <color name="brown">#A77EAC</color>
     <color name="skyBlue">#87CEEB</color>
     <color name="originalCardColor">#FFFFFF</color> <!-- 원래의 색상 -->
-    <color name="grayedOutCardColor">#12CCCCCC</color> <!-- 스위치가 꺼진 경우의 색상 -->
+    <color name="grayedOutCardColor">#D8454343</color> <!-- 스위치가 꺼진 경우의 색상 -->
     <color name="cottonBall">#FFF1F4FD</color>
     <color name="brown_test">#3b1509</color>
     <color name="test">#6a6b83</color>

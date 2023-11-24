@@ -1,20 +1,32 @@
 package com.example.cpt_odos_diary
 
-
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cpt_odos_diary.App.App
 
-
 class AchieveActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_achieve)
 
+        val toolbar : androidx.appcompat.widget.Toolbar = findViewById(R.id.achievement_toolbar)
+
+        // 툴바에 추가 메뉴를 넣기 위한 코드.
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -27,10 +39,12 @@ class AchieveActivity : AppCompatActivity() {
         val adapter = AchievementAdapter(achievementList)
         recyclerView.adapter = adapter
 
-        val achievementBackBtn = findViewById<androidx.appcompat.widget.Toolbar>(R.id.iv_achievementback)
+        /*
+        val achievementBackBtn = findViewById<androidx.appcompat.widget.Toolbar>(R.id.achievement_toolbar)
         achievementBackBtn.setOnClickListener {
             finish()
         }
+         */
     }
 
 }

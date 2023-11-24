@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_calender"
         android:title="@string/odos_calendar"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/refresh_check"
+        android:icon="@drawable/ic_refresh"
+        android:title="@string/odos_refresh"
+        app:showAsAction="always"/>
 </menu>
