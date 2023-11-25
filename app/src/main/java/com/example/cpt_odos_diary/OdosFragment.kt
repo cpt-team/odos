@@ -195,13 +195,14 @@ class OdosFragment : Fragment() {
             dialog.cancel()
         }
 
-        Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
+        //Log.d(ContentValues.TAG, "odos 날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
         //  완료 버튼 클릭 시
         save.setOnClickListener {
             odosText.text = "${year.value}년 ${month.value}월 ODOS LIST"
             dialog.dismiss()
             dialog.cancel()
             odosList.clear()
+
             prepare(binding, App.token_prefs.uid!!, odosApi, year.value, month.value)
         }
         dialog.setView(mView)
@@ -330,8 +331,14 @@ class OdosFragment : Fragment() {
 
                 } else {
                     Log.d(ContentValues.TAG, "/odos get 실패 : ${response.body()}")
+                    Log.d(TAG,"odosList삭제 호출됨")
+                    odosList.clear()
+                    binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
+                    binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
+
                     binding.odosPlus.setOnClickListener {
                         Log.d(TAG,"data 실패시 버튼 활성화")
+
                         val odosPlusIntent = Intent(requireContext(), OdosEditActivity::class.java)
                         startActivity(odosPlusIntent)
                     }
