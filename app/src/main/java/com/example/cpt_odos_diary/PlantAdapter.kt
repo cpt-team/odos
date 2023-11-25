@@ -49,8 +49,12 @@ class PlantAdapter(val context: Context, val data: MutableList<Plant>) : Recycle
             binding.plantImages.setImageResource(R.drawable.tulip5)
         }
         else if(plant.plantName == "장미"){
+            binding.plantImages.setImageResource(R.drawable.rose4)
+        }
+        else if(plant.plantName == "국화"){
             binding.plantImages.setImageResource(R.drawable.chrysanthemum5)
         }
+
 
 
         binding.choiceButton.setOnClickListener{ // 해당 식물을 선택하면 db에 유저와 선택한 식물을 저장한다.
