@@ -11,9 +11,10 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6">
+            android:layout_weight="5">
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
@@ -73,6 +74,7 @@
                 app:layout_constraintStart_toStartOf="@+id/background" />
 
             <TextView
+                android:id="@+id/plant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -86,19 +88,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
-            android:gravity="center">
-
+            android:gravity="center_horizontal">
             <LinearLayout
                 android:id="@+id/Linear1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:orientation="vertical">
+                <!-- 없애야함 -->
                 <TextView
-                    android:id="@+id/plant_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"

@@ -151,9 +151,6 @@ class OdosFragment : Fragment() {
         }
 */
 
-
-
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -172,8 +169,8 @@ class OdosFragment : Fragment() {
         val cancel : Button = mView.findViewById(R.id.cancel_button_datepicker)
         val save : Button = mView.findViewById(R.id.save_button_datepicker)
 
+        // odosText.text = "ODOS LIST"
 
-        odosText.text = "ODOS LIST"
         //  순환 안되게 막기
         year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
@@ -243,7 +240,6 @@ class OdosFragment : Fragment() {
         binding.odosRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.odosRecyclerView.adapter = OdosAdapter(activity as Context, odosList)
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
