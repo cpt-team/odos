@@ -19,7 +19,7 @@ class App: Application() {
         token_prefs.uid = "?"
         token_prefs.plantName = "?"
         token_prefs.plantDesc = ""
-        token_prefs.plantLevel = 0
+        token_prefs.plantLevel = 1
         token_prefs.podSkin = "0"
         token_prefs.backSkin = "0"
         token_prefs.odosYear = 1

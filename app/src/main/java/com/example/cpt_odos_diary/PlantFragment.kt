@@ -86,7 +86,8 @@ class PlantFragment : Fragment() {
         when (App.token_prefs.plantName) {
             "안개꽃" -> plant.setImageResource(R.drawable.gypsophila_purple2)
             "튤립" -> plant.setImageResource(R.drawable.tulip2)
-            "장미" -> plant.setImageResource(R.drawable.chrysanthemum2)
+            "국화" -> plant.setImageResource(R.drawable.chrysanthemum2)
+            "장미" -> plant.setImageResource(R.drawable.rose1)
         }
         when (App.token_prefs.podSkin) {
             "basicpod" -> pod.setImageResource(R.drawable.basicpod)
@@ -151,6 +152,14 @@ class PlantFragment : Fragment() {
                     2 -> plant.setImageResource(R.drawable.chrysanthemum3)
                     3 -> plant.setImageResource(R.drawable.chrysanthemum4)
                     4 -> plant.setImageResource(R.drawable.chrysanthemum5)
+
+                }
+            }
+            if (plantName.text == "장미") {
+                when (App.token_prefs.plantLevel) {
+                    2 -> plant.setImageResource(R.drawable.chrysanthemum2)
+                    3 -> plant.setImageResource(R.drawable.chrysanthemum3)
+                    4 -> plant.setImageResource(R.drawable.chrysanthemum4)
 
                 }
             }
