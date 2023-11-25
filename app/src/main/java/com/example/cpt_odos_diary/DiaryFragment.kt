@@ -202,10 +202,12 @@ class DiaryFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        //App.token_prefs.dayList = listOf()
         Log.d(TAG,"diaryCnt: ${App.token_prefs.diaryCnt}")
 
         Log.d(TAG,"odosCnt: ${App.token_prefs.odosnt}")
 
+        Log.d(TAG,"dayList: ${App.token_prefs.dayList}")
 
         val calendarView = view?.findViewById<CalendarView>(R.id.calendarview)
         val previousBtn = view?.findViewById<TextView>(R.id.previousMonthBtn)
@@ -216,6 +218,7 @@ class DiaryFragment : Fragment() {
         // req /diary에 사용할 데이터 변수 선언
         val uid: String? = App.token_prefs.uid
 
+
         Log.d(TAG, "uid는 $uid")
 
 
@@ -223,6 +226,10 @@ class DiaryFragment : Fragment() {
 
         // 현재 시간 출력 year,month -> String으로 서버에 넘겨야 하기 때문에 toString()
         val onlyDate: LocalDate = LocalDate.now()
+        App.token_prefs.odosYear = onlyDate.year
+        App.token_prefs.odosMonth = onlyDate.monthValue
+
+
         Log.d(TAG,"리저메 날짜: ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
         Log.d(TAG, "날짜는 ${App.token_prefs.odosYear}, ${App.token_prefs.odosMonth}")
 
@@ -275,6 +282,9 @@ class DiaryFragment : Fragment() {
 
 
                             }
+
+                            Log.d(TAG,"monthDate: ${monthDate}")
+
 
 
                             val selectedDate = Calendar.getInstance()
@@ -360,10 +370,13 @@ class DiaryFragment : Fragment() {
                                 val date1 = it[i].createAt.split(" ")[0]
                                 monthDate.add(date1.split("-")[2])
                             }
-
                                 App.token_prefs.dayList = monthDate
+                                Log.d(TAG,"monthDate: ${monthDate}")
+                                Log.d(TAG,"monthDate: ${App.token_prefs.dayList}")
+
                                 if (dateCheck != null) {
                                     dateCheck.text = App.token_prefs.dayList.toString()
+
                                 }
 
 
