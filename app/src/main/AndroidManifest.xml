@@ -42,10 +42,7 @@
             android:exported="false" />
         <activity
             android:name=".SigninActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignupActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".DiaryGetActivity"
             android:launchMode="singleTop"
@@ -55,6 +52,9 @@
         <activity
             android:name=".PlantChoiceActivity"
             android:exported="true"/>
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
 
 
         <activity

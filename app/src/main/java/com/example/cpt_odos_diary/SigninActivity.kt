@@ -67,6 +67,7 @@ class SigninActivity : AppCompatActivity() {
                      if(!App.token_prefs.uid.isNullOrBlank()) {
 
                          finish()
+
                      }
 
                  }

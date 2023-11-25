@@ -35,11 +35,15 @@ class PlantFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(binding.plantEdit1)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        /*
         // 식물 선택 화면 버튼
         binding.test.setOnClickListener {
             val intent = Intent(requireContext(), PlantChoiceActivity::class.java)
             startActivity(intent)
         }
+
+        */
+
         return binding.root
     }
 
@@ -51,11 +55,14 @@ class PlantFragment : Fragment() {
 
     // 툴바 아이콘 눌렀을 때
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val guideIntent = Intent(requireContext(), PlantinfoActivity::class.java)
         startActivity(guideIntent)
         return super.onOptionsItemSelected(item)
     }
+
+
 
     @SuppressLint("SetTextI18n")
     override fun onResume() {
